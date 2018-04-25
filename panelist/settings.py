@@ -12,12 +12,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 from shutil import copyfile
+import inspect
 
 try:
-    from .secure_settings import *
+    from .security_settings import *
 except ImportError:
-    copyfile('panelist/secure_settings.py.default', 'panelist/secure_settings.py')
-    from .secure_settings import *
+    projectDir = os.path.basename(os.path.dirname(__file__))
+    copyfile(projectDir + '/security_settings.py.default', projectDir + '/security_settings.py')
+    from .security_settings import *
 
 
 

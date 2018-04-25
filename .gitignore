@@ -87,5 +87,5 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-# Django secure settings
-panelist/secure_settings.py
+# Django security settings
+security_settings.py

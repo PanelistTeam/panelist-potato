@@ -15,11 +15,11 @@ from shutil import copyfile
 import inspect
 
 try:
-    from .security_settings import *
+    from .local_settings import *
 except ImportError:
     projectDir = os.path.basename(os.path.dirname(__file__))
-    copyfile(projectDir + '/security_settings.py.default', projectDir + '/security_settings.py')
-    from .security_settings import *
+    copyfile(projectDir + '/local_settings.py.default', projectDir + '/local_settings.py')
+    from .local_settings import *
 
 
 ALLOWED_HOSTS = []

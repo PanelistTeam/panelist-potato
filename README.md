@@ -7,6 +7,8 @@
 * pip
 * virtualenv
 
+For installation instructions, see [Installing Python](https://github.com/outfrost/panelist-potato/wiki/Installing-Python).
+
 ### Environment setup
 
 First, clone repository and checkout the appropriate branch, e.g.

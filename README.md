@@ -1,6 +1,8 @@
 # Project Panelist
 ## Web and API backend
 
+For Android app repo AKA 'pancake' [go here](https://github.com/outfrost/panelist-pancake).
+
 ### Dependencies
 
 * Python 3.5+

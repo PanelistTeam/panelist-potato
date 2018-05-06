@@ -15,14 +15,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import  url,include
-from django.urls import  path
-import panel
+from django.urls import path
+from django.contrib.auth import views as auth_views
 
+from . import views
 #from mysite.core import views as core_views
 urlpatterns = [
  #url(r'^$', core_views.home, name='home'),
-    url(r'panel/',  include('panel.urls')),
-   # url(r'^logout/$', auth_views.logout, name='logout'),
-   # url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
-     path('admin/', admin.site.urls),    
+    url(r'^login/$', auth_views.login, name='login'),
+    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
+   # url(r'^admin/', admin.site.urls),
+     url(r'^$', views.home, name='home'),
+       
 ]

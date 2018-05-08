@@ -105,3 +105,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Database
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'panel',
+        'USER': 'postgres',
+        'PASSWORD': 'zaq1@WSX',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    }
+}

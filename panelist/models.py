@@ -21,9 +21,11 @@ class Questions(models.Model):
     submitted_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='submitted_by', blank=True, null=True)
     time_submitted = models.DateTimeField(blank=True, null=True)
     current_version = models.ForeignKey('self', models.DO_NOTHING, db_column='current_version', blank=True, null=True)
+#   Conflict in DB   
 #    previous_version = models.ForeignKey('self',related_name='previous_version', models.DO_NOTHING, db_column='previous_version', blank=True, null=True)
     score = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=840, blank=True, null=True)
+    content = models.CharField(max_length=840, blank=True, null=True)  
 
 class QuestionsVotes(models.Model):
     question_id = models.ForeignKey('Questions', models.DO_NOTHING, db_column='question_id', blank=True, null=True)

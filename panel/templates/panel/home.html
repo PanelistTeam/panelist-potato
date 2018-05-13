@@ -2,8 +2,10 @@
 
 {% block content %}
 	{% if user.is_authenticated %}
-             <p class="display-4">Hello, {{ user.username }}</p>
-			   <a class="lead" href="{% url 'logout' %}">Logout</a>
+             <p class="display-8">Hello, {{ user.username }}</p>
+			 <p><a class="lead" href="{% url 'logout' %}">Logout</a></p>
+			 <p><a class="lead" href="{% url 'search' %}">Search </a></p>
+			 <p><a class="lead" href="{% url 'AddRoom' %}">Add your own room </a></p>
 	{% else %}
              <a class="lead" href="{% url 'login' %}">Log in</a>
 		

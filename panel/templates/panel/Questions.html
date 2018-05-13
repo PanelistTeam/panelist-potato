@@ -1,0 +1,21 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+	<p> Results: </p>
+		
+	{
+<h1>{{ question.question_text }}</h1>
+<ul>
+{% for choice in question.choice_set.all %}
+<li></b><a>{{ choice.choice_text }}</a></li>
+{% endfor %}
+</ul>
+	  {% endblock %}
+	
+	
+	{% else %}
+	
+	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
+	{% endif %}
+{% endblock content %}

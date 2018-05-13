@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'panel/',  include('panel.urls')),
    # url(r'^logout/$', auth_views.logout, name='logout'),
    # url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
-     path('admin/', admin.site.urls),    
+     path('admin/', admin.site.urls), 
+        
 ]

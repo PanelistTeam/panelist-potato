@@ -24,6 +24,11 @@ class Questions(models.Model):
 #    previous_version = models.ForeignKey('self',related_name='previous_version', models.DO_NOTHING, db_column='previous_version', blank=True, null=True)
     score = models.IntegerField(blank=True, null=True)
     email = models.CharField(max_length=840, blank=True, null=True)
+	
+	
+    def __str__(self):
+        return self.content
+
 
 class QuestionsVotes(models.Model):
     question_id = models.ForeignKey('Questions', models.DO_NOTHING, db_column='question_id', blank=True, null=True)

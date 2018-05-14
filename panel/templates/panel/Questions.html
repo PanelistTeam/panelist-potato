@@ -4,16 +4,32 @@
 {% if user.is_authenticated %}
 	<p> Results: </p>
 		
-	{
-<h1>{{ question.question_text }}</h1>
+	<p><a class="lead" href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/AddQuestion">AddQuestion</a></p>
+
 <ul>
-{% for choice in question.choice_set.all %}
-<li></b><a>{{ choice.choice_text }}</a></li>
+{% for question in questions %}
+<!-- {{ question.askroom_id}} ----{{id}}----------->
+  
+ <p><b>content of question:</b></p> {{ question.content }}</p>
+ <p><b>question creator: </p> </b><p> UNKNOWN{{ question.submited_by }}</p>
+ <p><b>date of creation: </p></b>{{ question.time_submitted }}</p> 
+ <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> 
+  <p><b>score :</p></b><p> {{ question.score }}</p> 
+  <p>------------------------------------------------------------------------------</p>    
+
+{% endfor %}
+<!-- question.askroom_id == roomID -->
+<!-- -->
+</ul>
+	 
+	<ul>
+<!--{% for question in questions %}
+
+<li><a>{{ question.content }}</a></li>
+<li><a>{{ question.submited_by }}</a></li>
 {% endfor %}
 </ul>
-	  {% endblock %}
-	
-	
+-->	
 	{% else %}
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>

@@ -1,0 +1,24 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+	<p> Form: </p>
+	<!--	<form method="POST" action="/search">
+{% csrf_token %}
+<input type="text" name="textfield">
+
+<button type="submit">Start room</button>
+</form> -->
+<h1>Create question </h1>
+<form action="#" method="POST">
+{% csrf_token %}
+content : <input type="text" name="content"/><br/>
+
+
+<input type="submit" value="Create room"/>
+</form>
+	{% else %}
+	
+	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
+	{% endif %}
+{% endblock content %}

@@ -17,18 +17,22 @@ from django.contrib import admin
 from django.conf.urls import url, include
 from django.urls import path
 from django.contrib.auth import views as auth_views
-
+from django.views.generic import ListView, DetailView
+from panel.models import Questions
 from . import views
 #from mysite.core import views as core_views
 urlpatterns = [
-    #url(r'^$', core_views.home, name='home'),
+    
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
-    url(r'^oauth/', include('social_django.urls', namespace='social')),  # <--
-    # url(r'^admin/', admin.site.urls),
+    url(r'^oauth/', include('social_django.urls', namespace='social')),   
     url(r'^$', views.home, name='home'),
     url(r'^search/', views.search, name='search'),
     url(r'^add/', views.addRoom, name='AddRoom'),
-    url(r'^ShowQuestions/<int:question.id>', views.ShowQuestions, name='ShowQuestions'),
-    #url(r'^convert/', include('lazysignup.urls')),
+   # url(r'^/ShowQuestions/(?P<id>\d+)/$', ListView.as_view(
+               #                    queryset=Questions.objects.all().order_by("-date"),
+             #                               template_name="panel/Questions.html")), #views.ShowQuestions, name='ShowQuestions'),
+			 path('ShowQuestions/<int:roomID>/',views.ShowQuestions, name='ShowQuestions'),
+             path('ShowQuestions/<int:roomID>/AddQuestion/',views.AddQuestion, name='AddQuestion'),
+    
 ]

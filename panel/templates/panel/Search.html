@@ -10,16 +10,10 @@
     
 	        {%  if {{ room.public }} %)
 			    <div>
-                <h5>Name of the room: <a href="{% url 'ShowQuestions' %}">{{ room.title }}</a></h5>
+                <h5>Name of the room: <a href="http://127.0.0.1:8000/panel/ShowQuestions/{{room.id}}">{{ room.title }}</a></h5>
                 <p>date of creation: {{ room.time_created }}</p>      
      	        <p> description: {{room.description}}</p>
-				<!--{% for user in users %}
-				<p>{{user.id}}</p>
-				{% if user.id == room.created_by %}
 				
-		        <p> created_by: {{user.display_name}}</p>
-				  {%endif %}
-				  {% endfor %} -->
 				  <p> created_by: {{room.social_created_by}}</p>
 		        <p>------------------------------------------------------------------------------</p>      
 	            </div>

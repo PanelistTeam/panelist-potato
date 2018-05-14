@@ -18,38 +18,41 @@ def home(request):
 
 
 def AddQuestion(request,roomID):
-    question=Questions.objects.filter('askroom_id'==roomID).order_by('score')
+   # question=Questions.objects.filter('askroom_id'==roomID).order_by('score')
     
     form= QuestionsForm(request.POST or None)
     if form.is_valid():
-        room = form.save(commit=False)
-        room.submitted_by = request.user.id;
-        room.time_submitted=datetime.datetime.now();
-        room.save()       
+        question = form.save(commit=False)
+        #question.submitted_by = request.user.id;
+        question.time_submitted=datetime.datetime.now();
+       # question.askroom_id=roomID
+        question.score=0
+        question.save()       
         
-        context= {'form': room }
+        context= {'form': question }
         
-        return render(request, 'panel/AddRoomForm.html', context)
+        return render(request, 'panel/AddQuestionForm.html', context)
     else:
-        return render(request, 'panel/AddRoomForm.html')
+        return render(request, 'panel/AddQuestionForm.html')
     return render(request, 'panel/Questions.html')
 def search(request):
     rooms= Askrooms.objects.order_by('title')
-   
-   # Room.objects.filter(name__unaccent__icontains=request.name)
-     #search_id = request.POST.get('textfield', None)
-   # try:
-        #room = Askrooms.objects.get(MAIN_AUTHOR = search_id)
-        #do something with user
-       # html = ("<H1>%s</H1>", user)
-        #return HttpResponse(html)
-    #except Person.DoesNotExist:
-       # return HttpResponse("no such room")  
+    print ("WTF")
+    for i in rooms:
+	     print (i.id)
+  
     return render(request, 'panel/search.html',{'rooms': rooms})
 def ShowQuestions(request,roomID):
-    questions= Questions.objects.filter('askroom_id'==roomID).order_by('score')
-    user = Users.objects.all()
-    return render(request, 'panel/Questions.html',{'rooms': questions, 'users':user})
+    questions= Questions.objects.order_by('time_submitted')#filter('askroom_id'==roomID).order_by('score')
+    #user = Users.objects.all()
+    for i in questions:
+        if(i.askroom_id== roomID):
+            print("TRUE")
+        else:
+            print ("FALSE")
+        
+        #print (i.askroom_id);
+    return render(request, 'panel/Questions.html',{'questions': questions, 'id':roomID})
 def addRoom(request):
     user = Users.objects.all()
     #room = modelformset_factory(Askrooms, fields=('title', 'my_type','public','description'))
@@ -85,7 +88,7 @@ def addRoom(request):
         print (request.user)
         print (request.user.id)
         #form.save()
-  
+        
         context= {'form': room }
         
         return render(request, 'panel/AddRoomForm.html', context)

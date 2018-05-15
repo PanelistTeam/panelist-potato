@@ -13,7 +13,7 @@ class AskroomsForm(forms.ModelForm):
 class QuestionsForm(forms.ModelForm):
     class Meta:
         model= Questions
-        fields= ["askroom_id", "submitted_by",  "time_submitted"]
+        fields= ["askroom_id", "submitted_by",  "time_submitted","content"]
         def __init__(self,user_id,date, *args, **kwargs):
             super(QuestionsForm, self).__init__(*args, **kwargs)
             self.submitted_by = user_id

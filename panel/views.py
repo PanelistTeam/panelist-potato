@@ -16,7 +16,9 @@ from django.shortcuts import get_object_or_404
 def home(request):
     return render(request, 'panel/home.html')
 
-
+def Score(request, roomID, questionID):
+    questions= Questions.objects.filter(id=questionID)
+    return render(request,'panel/Score.html', 'question':questions)
 def AddQuestion(request,roomID):
    # question=Questions.objects.filter('askroom_id'==roomID).order_by('score')
     
@@ -25,11 +27,11 @@ def AddQuestion(request,roomID):
         question = form.save(commit=False)
         #question.submitted_by = request.user.id;
         question.time_submitted=datetime.datetime.now();
-       # question.askroom_id=roomID
+        question.askroom_id=Askrooms.objects.get(id=roomID)
         question.score=0
         question.save()       
-        
-        context= {'form': question }
+        print(roomID)
+        context= {'form': question, 'id':roomID }
         
         return render(request, 'panel/AddQuestionForm.html', context)
     else:
@@ -43,13 +45,17 @@ def search(request):
   
     return render(request, 'panel/search.html',{'rooms': rooms})
 def ShowQuestions(request,roomID):
-    questions= Questions.objects.order_by('time_submitted')#filter('askroom_id'==roomID).order_by('score')
+    #questions= Questions.objects.order_by('time_submitted')#filter('askroom_id'==roomID).order_by('score')
+    questions= Questions.objects.filter(askroom_id=roomID) #get(askroom_id = roomID)
     #user = Users.objects.all()
+   # print (questions.get('askroom_id)'))
     for i in questions:
-        if(i.askroom_id== roomID):
-            print("TRUE")
-        else:
-            print ("FALSE")
+        print(i.id)
+        print (i.askroom_id)
+        #if(i.askroom_id== roomID):
+         #   print("TRUE")
+        #else:
+         #   print ("FALSE")
         
         #print (i.askroom_id);
     return render(request, 'panel/Questions.html',{'questions': questions, 'id':roomID})

@@ -34,5 +34,6 @@ urlpatterns = [
              #                               template_name="panel/Questions.html")), #views.ShowQuestions, name='ShowQuestions'),
 			 path('ShowQuestions/<int:roomID>/',views.ShowQuestions, name='ShowQuestions'),
              path('ShowQuestions/<int:roomID>/AddQuestion/',views.AddQuestion, name='AddQuestion'),
+             path('ShowQuestions/<int:roomID>/<int::questionID>',views.Score, name='Score'),
     
 ]

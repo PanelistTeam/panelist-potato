@@ -3,19 +3,17 @@
 {% block content %}
 {% if user.is_authenticated %}
 	<p> Results: </p>
-		{{id}}
-        
+		
 	<p><a class="lead" href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/AddQuestion">AddQuestion</a></p>
 
 <ul>
 {% for question in questions %}
 <!-- {{ question.askroom_id}} ----{{id}}----------->
   
- <p><b>content of question:</b></p> <a href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/{{question.id}}">{{ question.content }}</a></p>
+ <p><b>content of question:</b></p> <a class="lead" href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/{{qid}}">{{ question.content }}</p>
  <p><b>question creator: </p> </b><p> UNKNOWN{{ question.submited_by }}</p>
  <p><b>date of creation: </p></b>{{ question.time_submitted }}</p> 
 <!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
- <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
   <p>------------------------------------------------------------------------------</p>    
 

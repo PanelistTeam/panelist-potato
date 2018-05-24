@@ -13,14 +13,16 @@
 <form action="#" method="POST">
 {% csrf_token %}
 Title : <input type="text" name="title"/><br/>
-
-Public? (Write "True" or "False"): <input type="text" name="public"/><br/>
-
-
+<select name="public">
+    <option value="True">Public</option>
+    <option value="False">Private</option>       
+  </select> 
+  <br><br>
 description : <br/>
 <textarea cols="35" rows="8" name="description">
 </textarea><br/>
 <input type="submit" value="Create room"/>
+<input type="hidden" value="user.username" name="social_created_by" />
 </form>
 	{% else %}
 	

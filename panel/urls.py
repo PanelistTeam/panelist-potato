@@ -29,11 +29,8 @@ urlpatterns = [
     url(r'^$', views.home, name='home'),
     url(r'^search/', views.search, name='search'),
     url(r'^add/', views.addRoom, name='AddRoom'),
-   # url(r'^/ShowQuestions/(?P<id>\d+)/$', ListView.as_view(
-               #                    queryset=Questions.objects.all().order_by("-date"),
-             #                               template_name="panel/Questions.html")), #views.ShowQuestions, name='ShowQuestions'),
-			 path('ShowQuestions/<int:roomID>/',views.ShowQuestions, name='ShowQuestions'),
-             path('ShowQuestions/<int:roomID>/AddQuestion/',views.AddQuestion, name='AddQuestion'),
-             path('ShowQuestions/<int:roomID>/<int::questionID>',views.Score, name='Score'),
-    
+    path('ShowQuestions/<int:roomID>/',views.ShowQuestions, name='ShowQuestions'),
+    path('AddQuestion/<int:rid>/',views.AddQuestion, name='AddQuestion'),
+    path('<int:roomID>/EditQuestion/<int:questionID>/',views.EditQuestion,name='EditQuestion'),
+    path('<int:roomID>/DeleteQuestion/<int:questionID>/',views.DeleteQuestion,name='DeleteQuestion'),
 ]

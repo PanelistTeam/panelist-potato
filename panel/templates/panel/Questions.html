@@ -1,22 +1,72 @@
 {% extends "panel/layout.html" %}
 
 {% block content %}
+<p><a  href="{% url 'search' %}">Choose another room </a></p>
 {% if user.is_authenticated %}
-	<p> Results: </p>
-		{{id}}
-        
-	<p><a class="lead" href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/AddQuestion">AddQuestion</a></p>
-
+	
+	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
 <ul>
+
 {% for question in questions %}
-<!-- {{ question.askroom_id}} ----{{id}}----------->
+
+  {% if question.submitted_by|stringformat:'s' == user.get_username %}
+  <p><h6><b><a class="lead" href="http://127.0.0.1:8000/panel/{{roomID}}/EditQuestion/{{question.id}}/"> Edit content</p></b></a></h6>
+    <p><b><h6><a class="lead" href="http://127.0.0.1:8000/panel/{{roomID}}/DeleteQuestion/{{question.id}}/"> Delete question</p></b></a></h6>
   
- <p><b>content of question:</b></p> <a href="http://127.0.0.1:8000/panel/ShowQuestions/{{id}}/{{question.id}}">{{ question.content }}</a></p>
- <p><b>question creator: </p> </b><p> UNKNOWN{{ question.submited_by }}</p>
+  {% endif %}
+
+ <p><b>content of question:</b></p>{{ question.content }}</p>
+ 
+ <p><b>question creator: </p> </b><p> {{ question.submitted_by }}</p>
  <p><b>date of creation: </p></b>{{ question.time_submitted }}</p> 
 <!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
  <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
+
+  {% if question.id not in voting %}
+  <p><b>Vote for this question :</p></b>
+  <form   action= "#" method="POST" autocomplete="qwerty">
+{% csrf_token %}
+
+<select name="value" value="0" autocomplete="qwerty">
+
+    <option value="0">0</option>
+    <option value="1">+</option>
+    <option value="-1">-</option>
+    
+   
+  </select>
+ <input type="hidden"  name="question_id" value="{{question.id}}" autocomplete="qwerty">
+
+<input type="hidden"  name="user_id" value="{{user.id}}" autocomplete="qwerty">
+
+ 
+
+<input type="submit" value="Vote"/>
+
+ {% else %}
+ 
+ <p><b>Edit your vote: </p></b>
+  <form  action= "#" method="POST" autocomplete="qwerty">
+{% csrf_token %}
+
+<select name="value" value="-1" autocomplete="qwerty">
+
+    <option value="0">0</option>
+    <option value="1">+</option>
+    <option value="-1">-</option>
+    
+   
+  </select>
+ <input type="hidden"  name="question_id" value="{{question.id}}" autocomplete="qwerty">
+
+<input type="hidden"  name="user_id" value="{{user.id}}" autocomplete="qwerty">
+
+ 
+
+<input type="submit" value="Vote"/>
+ {% endif %}
+</form>
   <p>------------------------------------------------------------------------------</p>    
 
 {% endfor %}

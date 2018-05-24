@@ -2,19 +2,18 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-	<p> Results: {{ user.username }} </p>
 	
 	<h4>Search: </h4>  <input type="text" name="title"/><br/>
         {% for room in rooms %}
 	
     
-	        {%  if {{ room.public }} %)
+	        
 			    <div>
                 <h5>Name of the room: <a href="http://127.0.0.1:8000/panel/ShowQuestions/{{room.id}}">{{ room.title }}</a></h5>
                 <p>date of creation: {{ room.time_created }}</p>      
      	        <p> description: {{room.description}}</p>
-				
-				  <p> created_by: {{room.social_created_by}}</p>
+				 <p> room id: {{room.id}}</p>
+				  <p> created_by: {{room.created_by}}</p>
 		        <p>------------------------------------------------------------------------------</p>      
 	            </div>
 			

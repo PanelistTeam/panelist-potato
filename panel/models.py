@@ -1,5 +1,5 @@
 from django.db import  models
-
+from social_django.models import  UserSocialAuth
 class Users(models.Model):
     display_name = models.CharField(max_length=126)
     full_account = models.NullBooleanField()
@@ -12,12 +12,15 @@ class Askrooms(models.Model):
     public = models.NullBooleanField()
     time_created = models.DateTimeField(blank=True, null=True)
     description = models.CharField(max_length=840, blank=True, null=True)
-    created_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='created_by', blank=True, null=True)
+   # created_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='created_by', blank=True, null=True)
+    created_by = models.ForeignKey(UserSocialAuth, on_delete=models.SET_NULL, db_column='created_by', blank=True, null=True)
     state = models.IntegerField(blank=True, null=True)
-    social_created_by=models.IntegerField(blank=True,null=True)
+    
+    social_created_by=models.CharField(max_length=200,blank=True,null=True)
 class Questions(models.Model):
     askroom_id = models.ForeignKey('Askrooms', models.DO_NOTHING, db_column='askroom_id', blank=True, null=True)
-    submitted_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='submitted_by', blank=True, null=True)
+    #submitted_by = models.ForeignKey('Users', models.DO_NOTHING, db_column='submitted_by', blank=True, null=True)
+    submitted_by = models.ForeignKey(UserSocialAuth, on_delete=models.SET_NULL, db_column='submitted_by', blank=True, null=True)
     time_submitted = models.DateTimeField(blank=True, null=True)
     current_version = models.ForeignKey('self', models.DO_NOTHING, db_column='current_version', blank=True, null=True)
     content = models.CharField(max_length=840, blank=True, null=True)
@@ -32,8 +35,9 @@ class Questions(models.Model):
 
 class QuestionsVotes(models.Model):
     question_id = models.ForeignKey('Questions', models.DO_NOTHING, db_column='question_id', blank=True, null=True)
-    user_id = models.ForeignKey('Users', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
-    value = models.NullBooleanField()
+    #user_id = models.ForeignKey('Users', models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    user_id = models.ForeignKey(UserSocialAuth, models.DO_NOTHING, db_column='user_id', blank=True, null=True)
+    value = models.IntegerField(blank=True, null=True) 
 
 class Privileges(models.Model):
     user_id = models.ForeignKey('Users', models.DO_NOTHING, db_column='user_id', blank=True, null=True)

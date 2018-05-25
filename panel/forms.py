@@ -1,31 +1,34 @@
 from django import forms
-from .models import Askrooms
-from .models import Questions
-from .models import QuestionsVotes
-class AskroomsForm(forms.ModelForm):
+from .models import Askroom
+from .models import Question
+from .models import QuestionsVote
+from social_django.models import  UserSocialAuth
+class AskroomForm(forms.ModelForm):
     class Meta:
-        model= Askrooms
-        fields= ["title", "my_type", "public", "time_created","description","created_by","state"]
+        model= Askroom
+        fields= ["title", "askroom_type", "public", "time_created","description","created_by","state"]
         def __init__(self,user_id,date, *args, **kwargs):
-            super(AskroomsForm, self).__init__(*args, **kwargs)
+            super(AskroomForm, self).__init__(*args, **kwargs)
             self.created_by = user_id
             self.time_created=date
             
-class QuestionsForm(forms.ModelForm):
+class QuestionForm(forms.ModelForm):
     class Meta:
-        model= Questions
+        model= Question
         fields= ["askroom_id", "submitted_by",  "time_submitted","content"]
         def __init__(self,user_id,date, *args, **kwargs):
-            super(QuestionsForm, self).__init__(*args, **kwargs)
+            super(QuestionForm, self).__init__(*args, **kwargs)
             self.submitted_by = user_id
             self.time_created=date
             
             
-class QuestionsVotesForm(forms.ModelForm):
+class QuestionsVoteForm(forms.ModelForm):
     class Meta:
-        model= QuestionsVotes
-        fields= ["question_id", "user_id",  "value"]
-        def __init__(self,user_id,date, *args, **kwargs):
-            super(QuestionsForm, self).__init__(*args, **kwargs)
-            self.submitted_by = user_id
+        model= QuestionsVote
+        fields= ["question_id",  "value"]
+        def __init__(self,date,user_id, *args, **kwargs):
+            super(QuestionForm, self).__init__(*args, **kwargs)
+            self.user_id = user_id
             self.time_created=date
+
+                     

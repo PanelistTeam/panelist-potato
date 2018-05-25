@@ -1,8 +1,8 @@
 from django.contrib import admin
-from panel.models import Askrooms
-from panel.models import QuestionsVotes
-from panel.models import Questions
+from panel.models import Askroom
+from panel.models import QuestionsVote
+from panel.models import Question
 # Register your models here.
-admin.site.register(Askrooms)
-admin.site.register(Questions)
-admin.site.register(QuestionsVotes)
+admin.site.register(Askroom)
+admin.site.register(Question)
+admin.site.register(QuestionsVote)

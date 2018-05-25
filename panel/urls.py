@@ -18,7 +18,7 @@ from django.conf.urls import url, include
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import ListView, DetailView
-from panel.models import Questions
+
 from . import views
 #from mysite.core import views as core_views
 urlpatterns = [
@@ -33,4 +33,5 @@ urlpatterns = [
     path('AddQuestion/<int:rid>/',views.AddQuestion, name='AddQuestion'),
     path('<int:roomID>/EditQuestion/<int:questionID>/',views.EditQuestion,name='EditQuestion'),
     path('<int:roomID>/DeleteQuestion/<int:questionID>/',views.DeleteQuestion,name='DeleteQuestion'),
+    path('<int:roomID>/ShowVersions/<int:questionID>/', views.ShowVersions, name='ShowQuestion'),
 ]

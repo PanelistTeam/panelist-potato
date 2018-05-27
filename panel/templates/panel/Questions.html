@@ -6,8 +6,16 @@
 	
 	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
 <ul>
+<h1>Create question </h1>
+  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" >
+{% csrf_token %}
+content : <input type="text" name="content"/><br/>
+<input type="hidden" value="user.username" name="social_created_by" />
 
+<input type="submit" value="Create question"/>
+</form>
 
+    
 {% for question in questions %}
 
   {% if question.submitted_by|stringformat:'s' == user.get_username %}
@@ -25,69 +33,75 @@
 <!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
  <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
-{% if question.submitted_by|stringformat:'s' != user.get_username %}
+
   {% if question.id not in voting %}
   <p><b>Vote for this question :</p></b>
-  <form   action= "#" method="POST" autocomplete="qwerty">
+  {% else %}
+   <p><b>Edit your vote: </p></b>
+   {% endif %}
+  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/1/" method="POST" >
 {% csrf_token %}
 
-<select name="value" value="0" autocomplete="qwerty">
-
+<select name="value" value="0" >
     <option value="0">0</option>
     <option value="1">+</option>
-    <option value="-1">-</option>
-    
-   
+    <option value="-1">-</option>      
   </select>
- <input type="hidden"  name="question_id" value="{{question.id}}" autocomplete="qwerty">
-
-<input type="hidden"  name="user_id" value="{{user.id}}" autocomplete="qwerty">
-
- 
-
+ <input type="hidden"  name="question_id" value="{{question.id}}">
+<input type="hidden"  name="user_id" value="{{user.id}}" >
 <input type="submit" value="Vote"/>
-
- {% else %}
- 
- <p><b>Edit your vote: </p></b>
-  <form  action= "#" method="POST" autocomplete="qwerty">
-{% csrf_token %}
-
-<select name="value" value="-1" autocomplete="qwerty">
-
-    <option value="0">0</option>
-    <option value="1">+</option>
-    <option value="-1">-</option>
-    
-   
-  </select>
- <input type="hidden"  name="question_id" value="{{question.id}}" autocomplete="qwerty">
-
-<input type="hidden"  name="user_id" value="{{user.id}}" autocomplete="qwerty">
-
- 
-
-<input type="submit" value="Vote"/>
- {% endif %}
- {% endif %}
 </form>
+
   <p>------------------------------------------------------------------------------</p>    
 
 {% endfor %}
-<!-- question.askroom_id == roomID -->
-<!-- -->
-</ul>
-	 
-	<ul>
-<!--{% for question in questions %}
 
-<li><a>{{ question.content }}</a></li>
-<li><a>{{ question.submited_by }}</a></li>
-{% endfor %}
-</ul>
--->	
 	{% else %}
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
+    <script>
+$('#voteform').on('submit', function(event){
+    event.preventDefault();
+    event.stopPropagation();
+    console.log("form submitted!")  // sanity check
+    create_post();
+});
+/*
+$("#voteform").submit(function(event){
+ event.preventDefault();
+    event.stopPropagation();
+$.ajax({ data: $(this).serialize(),
+type: $(this).attr('method'),
+
+dataType: "json",
+console.log("asda"),
+success: function(response){
+console.log("asda");
+ if(response['success']) {
+                         $("#votemessage").html("<div class='alert alert-success'>Succesfully voted, thank you!</div>");
+                         $("#voteform").addClass("hidden");
+                     } 
+                     if(response['error']) {
+                         $("#voteform").html("<div class='alert alert-danger'>" +
+			                   response['error']['comment'] +"</div>");
+                     } 
+                
+              
+           }
+   
+})});
+*/
+
+
+
+function create_post() {
+
+event.stopPropagation();
+    console.log("create post is working!") // sanity check
+    console.log($('#post-text').val())
+    
+};
+</script>
 {% endblock content %}
+

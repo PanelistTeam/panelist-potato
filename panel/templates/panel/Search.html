@@ -2,8 +2,25 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-	
-	<h4>Search: </h4>  <input type="text" name="title"/><br/>
+	<h1>Create room </h1>
+<form action="#" method="POST">
+{% csrf_token %}
+Title : <input type="text" name="title"/><br/>
+<p>Type of room: </p>
+<select name="public">
+    <option value="True">Public</option>
+    <option value="False">Private</option>       
+  </select> 
+  <br><br>
+description : <br/>
+<textarea cols="35" rows="3" name="description">
+</textarea><br/>
+<input type="submit" value="Create room"/>
+<input type="hidden" value="user.username" name="social_created_by" />
+</form>
+	<!--<h4>Search: </h4>  <input type="text" name="title"/><br/> -->
+    <p></p
+     <p>------------------------------------------------------------------------------</p>      
         {% for room in rooms %}
 	
     

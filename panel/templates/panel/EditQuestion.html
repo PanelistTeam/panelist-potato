@@ -11,8 +11,7 @@
 {% if question.submitted_by|stringformat:'s' == user.get_username %}
 content : <input type="text" name="content"/><br/>
 <input type="submit" value="Edit"/>
- {% else %}
-  weqeq
+
 {% endif %}
 </form>
 	{% else %}

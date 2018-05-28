@@ -44,7 +44,7 @@ class ViewsManager():
         for i in votes:
             i.question_id = newContent
             i.save()
-        return question
+        #return question
     def DeleteManager(self,question,form):
         votes = QuestionsVote.objects.filter(question_id=question.id)
         for i in votes:
@@ -108,7 +108,7 @@ class ViewsManager():
         id=request.user.id - 1), question_id=request.POST.get('question_id'))
         score.user_id = UserSocialAuth.objects.get(
         id=request.user.id - 1)
-                
+        print (qv)       
         if(qv is None):
             score.save()
         else:
@@ -123,6 +123,13 @@ class ViewsManager():
         question.submitted_by = UserSocialAuth.objects.get(
             id=request.user.id - 1)
         question.content=request.POST.get('content')
-        question.save()    
-        context = {'form': question, 'roomID': roomID}
-        return context
+        qstn= Question.objects.filter(submitted_by=UserSocialAuth.objects.get(
+        id=request.user.id - 1), content=request.POST.get('content'))
+        
+        if(len(qstn)==0):
+            question.save()
+        else:
+            print("Already posted")
+        #question.save()    
+       # context = {'form': question, 'roomID': roomID}
+        #return context

@@ -7,11 +7,11 @@
 	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
 <ul>
 <h1>Create question </h1>
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" >
+  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="CreateQ" >
 {% csrf_token %}
-content : <input type="text" name="content"/><br/>
+content : <br><input type="text" name="content"/></br>
 <input type="hidden" value="user.username" name="social_created_by" />
-
+<input type="hidden" name="IdentifyQ" />
 <input type="submit" value="Create question"/>
 </form>
 
@@ -19,10 +19,24 @@ content : <input type="text" name="content"/><br/>
 {% for question in questions %}
 
   {% if question.submitted_by|stringformat:'s' == user.get_username %}
-  <p><h6><b><a class="lead" href="http://127.0.0.1:8000/panel/{{roomID}}/EditQuestion/{{question.id}}/"> Edit content</p></b></a></h6>
-    <p><b><h6><a class="lead" href="http://127.0.0.1:8000/panel/{{roomID}}/DeleteQuestion/{{question.id}}/"> Delete question</p></b></a></h6>
+ 
+  <form action="" method="POST">
+{% csrf_token %}
+
+<input type="submit" value="Delete question"/>
+<input type="hidden" name="IdentifyDelete"/>
+<input type="hidden" name="qID" value={{question.id}}/>
+</form>
+<form action="#" method="POST">
+{% csrf_token %}
+content : <input type="text" name="content"/><br/>
+<input type="submit" value="Edit"/>
+<input type="hidden" name="IdentifyEdit"/>
+<input type="hidden" name="qID" value="{{question.id}}" />
+</form>
+{% endif %}
   
-  {% endif %}
+
 
  <p><b>content of question:</b></p>{{ question.content }}</p>
  {% if question.previous_version is not None %}
@@ -33,13 +47,13 @@ content : <input type="text" name="content"/><br/>
 <!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
  <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
-
+{% if question.submitted_by|stringformat:'s' != user.get_username %}
   {% if question.id not in voting %}
   <p><b>Vote for this question :</p></b>
   {% else %}
    <p><b>Edit your vote: </p></b>
    {% endif %}
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/1/" method="POST" >
+  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="Vote" >
 {% csrf_token %}
 
 <select name="value" value="0" >
@@ -50,8 +64,9 @@ content : <input type="text" name="content"/><br/>
  <input type="hidden"  name="question_id" value="{{question.id}}">
 <input type="hidden"  name="user_id" value="{{user.id}}" >
 <input type="submit" value="Vote"/>
+<input type="hidden"  name="IdentifyVote" />
 </form>
-
+ {% endif %}
   <p>------------------------------------------------------------------------------</p>    
 
 {% endfor %}

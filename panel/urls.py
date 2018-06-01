@@ -20,11 +20,13 @@ from django.contrib.auth import views as auth_views
 from django.views.generic import ListView, DetailView
 
 from . import views
+from . import views as core_views
 #from mysite.core import views as core_views
 urlpatterns = [
     
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),   
     url(r'^$', views.home, name='home'),
     url(r'^search/', views.search, name='search'),

@@ -21,6 +21,10 @@ import json
 from panel.ViewsManager import ViewsManager
 from django.core import serializers
 
+#For sign up
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
 
 Manager = ViewsManager()
 
@@ -98,3 +102,17 @@ def ShowQuestions(request, roomID):
             if form.is_valid():
                 Manager.DeleteManager(qst[0], form)
     return render(request, 'panel/Questions.html', Manager.ShowQManager(roomID, request))
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=username, password=raw_password)
+            login(request, user)
+            return redirect('panel/home.html')
+    else:
+        form = UserCreationForm()
+    return render(request, 'signup.html', {'form': form})

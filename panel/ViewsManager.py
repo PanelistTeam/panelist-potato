@@ -68,7 +68,7 @@ class ViewsManager():
         question.delete()
     def SearchManager(self, form,request):
         room = form.save(commit=False)            
-        room.created_by = UserSocialAuth.objects.get(id=request.user.id - 1)
+        room.created_by = User.objects.get(id=request.user.id)
         room.time_created = datetime.datetime.now()
         roomcheck=Askroom.objects.filter(created_by=room.created_by, title=room.title, description=room.description)           
         if(len(roomcheck)==0):
@@ -90,7 +90,7 @@ class ViewsManager():
 
     
         voting = QuestionsVote.objects.filter(
-        user_id=UserSocialAuth.objects.get(id=request.user.id - 1))
+        user_id=User.objects.get(id=request.user.id ))
     
         votingIDs = []
         votingIDs2 = []
@@ -108,10 +108,10 @@ class ViewsManager():
     def VoteManager(self,form,request):  
           
         score = form.save(commit=False)
-        qv = QuestionsVote.objects.filter(user_id=UserSocialAuth.objects.get(
-        id=request.user.id - 1), question_id=request.POST.get('question_id'))
-        score.user_id = UserSocialAuth.objects.get(
-        id=request.user.id - 1)
+        qv = QuestionsVote.objects.filter(user_id=User.objects.get(
+        id=request.user.id ), question_id=request.POST.get('question_id'))
+        score.user_id = User.objects.get(
+        id=request.user.id)
         print (qv)       
         if(qv is None):
             score.save()
@@ -124,11 +124,11 @@ class ViewsManager():
         question.time_submitted = datetime.datetime.now()
         question.askroom_id = Askroom.objects.get(id=roomID)
         question.score = 0
-        question.submitted_by = UserSocialAuth.objects.get(
-            id=request.user.id - 1)
+        question.submitted_by = User.objects.get(
+            id=request.user.id )
         question.content=request.POST.get('content')
-        qstn= Question.objects.filter(submitted_by=UserSocialAuth.objects.get(
-        id=request.user.id - 1), content=request.POST.get('content'))
+        qstn= Question.objects.filter(submitted_by=User.objects.get(
+        id=request.user.id ), content=request.POST.get('content'))
         
         if(len(qstn)==0):
             question.save()

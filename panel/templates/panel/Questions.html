@@ -6,16 +6,19 @@
 	
 	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
 <ul>
-<h1>Create question </h1>
+<b>Create new question:</b>
   <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="CreateQ" >
 {% csrf_token %}
 content : <br><input type="text" name="content"/></br>
+
 <input type="hidden" value="user.username" name="social_created_by" />
 <input type="hidden" name="IdentifyQ" />
 <input type="submit" value="Create question"/>
 </form>
 
-    
+    <p></p>
+      <p>------------------------------------------------------------------------------</p>    
+
 {% for question in questions %}
 
   {% if question.submitted_by|stringformat:'s' == user.get_username %}
@@ -27,9 +30,10 @@ content : <br><input type="text" name="content"/></br>
 <input type="hidden" name="IdentifyDelete"/>
 <input type="hidden" name="qID" value={{question.id}}/>
 </form>
+Edit question:
 <form action="#" method="POST">
 {% csrf_token %}
-content : <input type="text" name="content"/><br/>
+content : <p><input type="text" name="content"/><br/></p>
 <input type="submit" value="Edit"/>
 <input type="hidden" name="IdentifyEdit"/>
 <input type="hidden" name="qID" value="{{question.id}}" />

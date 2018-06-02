@@ -27,24 +27,28 @@ class ViewsManager():
         newContent.submitted_by = question.submitted_by
         newContent.score = question.score
         newContent.previous_version = question
-        newContent.save()    
-        prevq = Question.objects.filter(current_version=question)
-        for i in prevq:
-            i.current_version = newContent
-            i.save()
-            print("i:")
-            print(i)
-            print(i.current_version)
+        contentVerify= Question.objects.filter(content=newContent.content,previous_version=newContent.previous_version)        
+        if(len(contentVerify)==0):
+            newContent.save()    
+            prevq = Question.objects.filter(current_version=question)
+            for i in prevq:
+                i.current_version = newContent
+                i.save()
+                print("i:")
+                print(i)
+                print(i.current_version)
         
-        question.current_version = newContent
-        question.save()
+            question.current_version = newContent
+            question.save()
 
-        votes = QuestionsVote.objects.filter(question_id=question.id)
+            votes = QuestionsVote.objects.filter(question_id=question.id)
         
-        for i in votes:
-            i.question_id = newContent
-            i.save()
+            for i in votes:
+                i.question_id = newContent
+                i.save()
         #return question
+        else :
+            print("Already edited")
     def DeleteManager(self,question,form):
         votes = QuestionsVote.objects.filter(question_id=question.id)
         for i in votes:

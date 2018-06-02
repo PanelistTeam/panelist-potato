@@ -21,6 +21,11 @@ from django.views.generic import ListView, DetailView
 
 from . import views
 #from mysite.core import views as core_views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 urlpatterns = [
     
     url(r'^login/$', auth_views.login, name='login'),
@@ -34,4 +39,8 @@ urlpatterns = [
     path('<int:roomID>/EditQuestion/<int:questionID>/',views.EditQuestion,name='EditQuestion'),
     path('<int:roomID>/DeleteQuestion/<int:questionID>/',views.DeleteQuestion,name='DeleteQuestion'),
     path('<int:roomID>/ShowVersions/<int:questionID>/', views.ShowVersions, name='ShowQuestion'),
+    path('api-auth/', include('rest_framework.urls')),
+    url(r'^api/token/$', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    url(r'^api/token/refresh/$', TokenRefreshView.as_view(), name='token_refresh'),
+    path('SignUp', views.signup, name='signup'),
 ]

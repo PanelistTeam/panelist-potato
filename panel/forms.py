@@ -2,6 +2,7 @@ from django import forms
 from .models import Askroom
 from .models import Question
 from .models import QuestionsVote
+from .models import User
 from social_django.models import  UserSocialAuth
 class AskroomForm(forms.ModelForm):
     class Meta:
@@ -44,3 +45,8 @@ class QuestionsVoteForm(forms.ModelForm):
             self.user_id = user_id
             self.time_created=date
 """
+
+class UsernameForm(forms.ModelForm):
+    class Meta:
+        model= User
+        fields= ["display_name"]

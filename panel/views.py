@@ -21,6 +21,12 @@ import json
 from panel.ViewsManager import ViewsManager
 from django.core import serializers
 
+#for TOKEN
+import jwt,json
+from rest_framework import views
+from rest_framework.response import Response
+from .models import User
+
 
 Manager = ViewsManager()
 
@@ -98,3 +104,13 @@ def ShowQuestions(request, roomID):
             if form.is_valid():
                 Manager.DeleteManager(qst[0], form)
     return render(request, 'panel/Questions.html', Manager.ShowQManager(roomID, request))
+
+    def AddUser(request):
+
+        form = UsernameForm(request.POST or None)
+        if form.is_valid():
+            return render(request, 'panel/AddQuestionForm.html', Manager.AddQManager(rid, form, request))
+        return render(request, 'panel/home.html')
+
+    def signup(request):
+        return render(request, 'panel/signup.html')

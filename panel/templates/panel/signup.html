@@ -1,0 +1,11 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+<h1>Type your username</h1>
+  <form action="adduser"    method="POST" >
+{% csrf_token %}
+content : <input type="text" name="username"/><br/>
+
+<input type="submit" value="Login"/>
+</form>
+{% endblock content %}

@@ -3,23 +3,23 @@
 {% block content %}
 {% if user.is_authenticated %}
 	<h1>Create room </h1>
-<form action="#" method="POST">
+<form action="#" method="POST" id="rooms">
 {% csrf_token %}
-Title : <input type="text" name="title"/><br/>
+Title : <input type="text" name="title" id="title"/><br/>
 <p>Type of room: </p>
-<select name="public">
+<select name="public" id= "public"'>
     <option value="True">Public</option>
     <option value="False">Private</option>       
   </select> 
   <br><br>
 description : <br/>
-<textarea cols="35" rows="3" name="description">
+<textarea cols="35" rows="3" name="description" id="description">
 </textarea><br/>
 <input type="submit" value="Create room"/>
-<input type="hidden" value="user.username" name="social_created_by" />
+<input type="hidden" value="user.username" name="social_created_by" id="CreatedBy" />
 </form>
 	<!--<h4>Search: </h4>  <input type="text" name="title"/><br/> -->
-    <p></p
+    <p></p>
      <p>------------------------------------------------------------------------------</p>      
         {% for room in rooms %}
 	
@@ -43,4 +43,8 @@ description : <br/>
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
+    
+   <script  src="\static\scripts\main.js"></script>
 {% endblock content %}
+    
+

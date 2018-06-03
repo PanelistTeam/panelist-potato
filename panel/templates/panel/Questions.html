@@ -6,16 +6,20 @@
 	
 	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
 <ul>
-<h1>Create question </h1>
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="CreateQ" >
+<b>Create new question:</b>
+  <form   action= "#" method="POST" id="NewQ" >
 {% csrf_token %}
-content : <br><input type="text" name="content"/></br>
-<input type="hidden" value="user.username" name="social_created_by" />
-<input type="hidden" name="IdentifyQ" />
+content : <br><input type="text" name="content" id="content"/></br>
+
+<input type="hidden" value="user.username" name="social_created_by"  id="CreatedBy"/>
+<input type="hidden" name="IdentifyQ"  id="IdentifyQ"/>
+<input type="hidden" value="{{roomID}}" name="askroom_id" id="askroomID"/>
 <input type="submit" value="Create question"/>
 </form>
 
-    
+    <p></p>
+      <p>------------------------------------------------------------------------------</p>    
+
 {% for question in questions %}
 
   {% if question.submitted_by|stringformat:'s' == user.get_username %}
@@ -27,12 +31,13 @@ content : <br><input type="text" name="content"/></br>
 <input type="hidden" name="IdentifyDelete"/>
 <input type="hidden" name="qID" value={{question.id}}/>
 </form>
-<form action="#" method="POST">
+Edit question:
+<form action="#" method="POST" id="Edits" >
 {% csrf_token %}
-content : <input type="text" name="content"/><br/>
+content : <p><input type="text" name="content" id="content"/><br/></p>
 <input type="submit" value="Edit"/>
-<input type="hidden" name="IdentifyEdit"/>
-<input type="hidden" name="qID" value="{{question.id}}" />
+<input type="hidden" name="IdentifyEdit"  id="IdentifyEdit"/>
+<input type="hidden" name="qID" value="{{question.id}}" id="qID" />
 </form>
 {% endif %}
   
@@ -53,18 +58,18 @@ content : <input type="text" name="content"/><br/>
   {% else %}
    <p><b>Edit your vote: </p></b>
    {% endif %}
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="Vote" >
+  <form   action= "#" method="POST" name="Vote" id="voting" >
 {% csrf_token %}
 
-<select name="value" value="0" >
+<select name="value" value="0" id="value" >
     <option value="0">0</option>
     <option value="1">+</option>
     <option value="-1">-</option>      
   </select>
- <input type="hidden"  name="question_id" value="{{question.id}}">
-<input type="hidden"  name="user_id" value="{{user.id}}" >
+ <input type="hidden"  name="question_id" value="{{question.id}}" id="question_id"/>
+<input type="hidden"  name="user_id" value="{{user.id}}" id="user_id" />
 <input type="submit" value="Vote"/>
-<input type="hidden"  name="IdentifyVote" />
+<input type="hidden"  name="IdentifyVote" id= "IdentifyVote"/>
 </form>
  {% endif %}
   <p>------------------------------------------------------------------------------</p>    
@@ -75,48 +80,6 @@ content : <input type="text" name="content"/><br/>
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
-    <script>
-$('#voteform').on('submit', function(event){
-    event.preventDefault();
-    event.stopPropagation();
-    console.log("form submitted!")  // sanity check
-    create_post();
-});
-/*
-$("#voteform").submit(function(event){
- event.preventDefault();
-    event.stopPropagation();
-$.ajax({ data: $(this).serialize(),
-type: $(this).attr('method'),
-
-dataType: "json",
-console.log("asda"),
-success: function(response){
-console.log("asda");
- if(response['success']) {
-                         $("#votemessage").html("<div class='alert alert-success'>Succesfully voted, thank you!</div>");
-                         $("#voteform").addClass("hidden");
-                     } 
-                     if(response['error']) {
-                         $("#voteform").html("<div class='alert alert-danger'>" +
-			                   response['error']['comment'] +"</div>");
-                     } 
-                
-              
-           }
-   
-})});
-*/
-
-
-
-function create_post() {
-
-event.stopPropagation();
-    console.log("create post is working!") // sanity check
-    console.log($('#post-text').val())
-    
-};
-</script>
+ <script  src="\static\scripts\main.js"></script>
 {% endblock content %}
 

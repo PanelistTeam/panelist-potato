@@ -7,6 +7,7 @@ class AskroomForm(forms.ModelForm):
     class Meta:
         model= Askroom
         fields= ["title", "askroom_type", "public", "time_created","description","created_by","state"]
+        
         def __init__(self,user_id,date, *args, **kwargs):
             super(AskroomForm, self).__init__(*args, **kwargs)
             self.created_by = user_id

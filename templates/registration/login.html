@@ -2,18 +2,22 @@
 
 
 {% block content %}
+<div class="login" style="margin-top: 100px" >
   <h2>Login</h2>
   <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Login</button>
+    <button class="mybutton" type="submit">Login</button>
   </form>
   <br>
   <a class="lead" href="{% url 'signup' %}">Sign up</a>
-  <p><strong>-- OR --</strong></p>
+  
+  <p class="or"><strong>-- OR --</strong></p>
    <br>
- 
-  <a href="{% url 'social:begin' 'google-oauth2' %}">Login with Google</a><br>
-    <a href="{% url 'social:begin' 'github' %}">Login with GitHub</a><br>
-	    <a href="{% url 'social:begin' 'twitter' %}">Login with Twitter</a>
+   {% load staticfiles %}
+  <br>
+  <a class="sociallink" href="{% url 'social:begin' 'google-oauth2' %}"><img class="sociallink" src="{% static 'sign-in-with-google.png' %}" alt="Login with Google"/></a><br>
+    <a class="sociallink" href="{% url 'social:begin' 'github' %}"><img class="sociallink" src="{% static 'gh-login-button.png' %}" alt="Login with GitHub"/></a><br>
+      <a class="sociallink" href="{% url 'social:begin' 'twitter' %}"><img class="sociallink" src="{% static 'twitter-btn-signin.png' %}" alt="Login with Twitter"/></a>
+</div>
 {% endblock %}

@@ -1,0 +1,96 @@
+header{
+    margin-bottom: 100px;
+}
+
+body {
+	height: 800px;
+	width: 1000px;
+	background: white;
+	margin:	auto;
+	padding: 0;
+}
+
+.navbar {
+    position: static;
+  
+
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: blue;
+}
+
+.navbar-brand{
+    color: white;
+    font: "Open Sans";
+	font-size: 26px;
+	font: bold;
+}
+
+button {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width:  150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button:hover  {
+    background-color: rgb(5, 45, 175);
+    color: white;
+}
+
+.lead {
+    background-color: #005800;
+    color: white;
+    padding: 14px 25px;
+    width:  150px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+a:hover.lead , a:active.lead  {
+    background-color: #017401;
+    color: white;
+    text-decoration: none;
+}
+
+/*Login*/
+.navbarlogin {
+    float: left;
+    top: 0px;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 1000px;
+    background: blue;
+}
+.login{
+    margin-top: 100px;
+    margin: auto;
+    width: 50%;
+    border: 3px solid green;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+label {
+    display: block;
+}
+
+p.or{
+    padding: auto;
+    margin-top: 20px;
+}
+
+img.sociallink{
+    width: 250px;
+    
+}

@@ -3,9 +3,19 @@ $('#rooms').on('submit', function(event){
     event.preventDefault();  
     create_room();
 });
-$('#voting').on('submit', function(event){
+$('.voting').on('submit', function(event){
+	console.log("voting")
     event.preventDefault();
-    vote();
+	//console.log($('.question_id1')[2]['value'])
+    console.log($('.voting')[0]['value']['value'])
+    
+     console.log($('.voting')[2]['IdentifyVote'])
+      console.log($('#value').val())
+   // console.log($('#question_id'))
+   // console.log("qid1")
+   // console.log($('#iteration').val())
+   vote();
+	
 });
 $('#Edits').on('submit', function(event){
     event.preventDefault();
@@ -22,26 +32,46 @@ $('#NewQ').on('submit', function(event){
     newQ();
 });
 /*------Actual Methods---------*/
+
 function vote() {
+    list=[]
+    for (i = 0; i < $('.voting').length; i++) { 
+    dict={'voting':$('.voting')[i]['value']['value'],
+          'question_id' : $('.voting')[i]['question_id']['value'],
+           'user_id': $('.voting')[i]['user_id']['value'],
+          	'IdentifyVote' : " "
+    
+	    	     
+                 
+	    	    
+    }
+    if(dict['voting']!= " ")
+    {
+    list.push(dict)
+    }}
+    //jsonText=$.serialize(list)
+     jsonText=JSON.stringify(list)
+    console.log(jsonText)
 	$.ajax({
 	    url : " ", // the endpoint
 	    type : "POST", // http method
-	    
-	    data : { question_id : $('#question_id').val(),
-	    	     user_id : $('#user_id').val(),	    	     
-	    	     IdentifyVote: $('#IdentifyVote').val(),
-	    	     value: $('#value').val(),
-	    	     csrfmiddlewaretoken: '{% csrf_token %}'
+	    traditional: true,
+	    data : {'data1':jsonText}  	    
 	    
 	    
-	    }, // data sent with the post request
+	    , // data sent with the post request
 
 	    // handle a successful response
 	    success : function(json) {
-	        $('#data').val(''); // remove the value from the input
+	         for (i = 0; i < $('.voting').length; i++) { 
+             $('.voting')[i]['value']['value']=' '
+           
+          	
+             }
+            console.log($('.voting'))
 	        console.log(json); // log the returned json to the console
 	        console.log("success"); // another sanity check
-	        location.reload(true);
+	        location.reload();
 	        
 	    },
 
@@ -57,7 +87,7 @@ function vote() {
 																// console
 	    }
 	});
-	
+	return false;
 	}
 //------------------------------------------------------------------------------------------------------//
 function EditQ() {
@@ -68,7 +98,7 @@ function EditQ() {
 	    data : { 
 	    	     content : $('#content').val(),	    	     
 	    	     IdentifyEdit: $('#IdentifyEdit').val(),
-	    	     csrfmiddlewaretoken: '{% csrf_token %}',
+	    	   
 	    	     qID: $('#qID').val()
 	    
 	    
@@ -103,7 +133,7 @@ function DeleteQ() {
 	    	     public : $('#public').val(),
 	    	     description : $('#description').val(),
 	    	     social_created_by: $('#CreatedBy').val(),
-	    	     csrfmiddlewaretoken: '{% csrf_token %}'
+	    	  
 	    
 	    
 	    }, // data sent with the post request
@@ -142,7 +172,7 @@ $.ajax({
     	     content : $('#content').val(),
     	     social_created_by: $('#CreatedBy').val(),
     	     IdentifyQ: $('#IdentifyQ').val(),
-    	     csrfmiddlewaretoken: '{% csrf_token %}'
+    	  
     
     
     }, 
@@ -176,14 +206,15 @@ $.ajax({
     	     public : $('#public').val(),
     	     description : $('#description').val(),
     	     social_created_by: $('#CreatedBy').val(),
-    	     csrfmiddlewaretoken: '{% csrf_token %}'
+    	  
     
     
     }, // data sent with the post request
 
     // handle a successful response
     success : function(json) {
-        $('#data').val(''); // remove the value from the input
+        $('#title').prop('');
+        $('#description').prop('');        // remove the value from the input
         console.log(json); // log the returned json to the console
         console.log("success"); // another sanity check
         location.reload();

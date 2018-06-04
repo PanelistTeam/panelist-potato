@@ -39,17 +39,14 @@ content : <p><input type="text" name="content" id="content"/><br/></p>
 <input type="hidden" name="IdentifyEdit"  id="IdentifyEdit"/>
 <input type="hidden" name="qID" value="{{question.id}}" id="qID" />
 </form>
-{% endif %}
-  
-
-
+{% endif %} 
  <p><b>content of question:</b></p>{{ question.content }}</p>
  {% if question.previous_version is not None %}
  <p> This question has been edited. To see all versions click <a href="http://127.0.0.1:8000/panel/{{roomID}}/ShowVersions/{{question.id}}/">here</a></p>
  {% endif %}
  <p><b>question creator: </p> </b><p> {{ question.submitted_by }}</p>
  <p><b>date of creation: </p></b>{{ question.time_submitted }}</p> 
-<!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
+
  <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
 {% if question.submitted_by|stringformat:'s' != user.get_username %}
@@ -58,19 +55,22 @@ content : <p><input type="text" name="content" id="content"/><br/></p>
   {% else %}
    <p><b>Edit your vote: </p></b>
    {% endif %}
-  <form   action= "#" method="POST" name="Vote" id="voting" >
-{% csrf_token %}
-
-<select name="value" value="0" id="value" >
+ <form  class ="voting" method="POST"  >
+<select name="value" class="value" value=" "  id="value">
+    <option value=" "></option>
     <option value="0">0</option>
     <option value="1">+</option>
     <option value="-1">-</option>      
-  </select>
- <input type="hidden"  name="question_id" value="{{question.id}}" id="question_id"/>
-<input type="hidden"  name="user_id" value="{{user.id}}" id="user_id" />
+</select>
+ <input type="hidden"  name="question_id" value={{question.id}} class="question_id1" id="question_id"/>
+
+<input type="hidden"  name="user_id" value="{{user.id}}" class="user_id" id="user_id" />
+<input type="hidden"  name="IdentifyVote" class= "IdentifyVote" id= "IdentifyVote"/>
+
 <input type="submit" value="Vote"/>
-<input type="hidden"  name="IdentifyVote" id= "IdentifyVote"/>
+
 </form>
+
  {% endif %}
   <p>------------------------------------------------------------------------------</p>    
 
@@ -80,6 +80,6 @@ content : <p><input type="text" name="content" id="content"/><br/></p>
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
- <script  src="\static\scripts\main.js"></script>
+ <script  type="text/javascript"  src="\static\scripts\main.js"></script>
 {% endblock content %}
 

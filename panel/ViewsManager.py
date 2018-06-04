@@ -12,6 +12,7 @@ from panel.models import QuestionsVote
 from django.core import serializers
 from django.contrib.auth import login, authenticate
 from django.http import HttpResponse, JsonResponse
+import json
 class ViewsManager():
     def SignUpManager(self,form,request):
         form.save()
@@ -20,12 +21,21 @@ class ViewsManager():
         user = authenticate(username=username, password=raw_password)
         login(request, user)
     def ChooseFormManager(self, request, roomID,checkPOST):
-        print(checkPOST)
-        if 'IdentifyVote' in checkPOST:
+        z=request.POST
+        print(z['data1'])
+        temp=request.POST.get('data1')
+        k=""
+        for j in temp:
+            if(j!="[" and j!="]" ):
+                k+=j
+        temp1=eval(k)
+        if 'IdentifyVote' in temp1:
             print("IV")
-            form = QuestionsVoteForm(request.POST or None)
+            form = QuestionsVoteForm(temp1 or None)
             if form.is_valid():
-               return JsonResponse( self.VoteManager(form, request),safe=False)
+                z=JsonResponse(self.VoteManager(form, temp1),safe=False)
+                print(z)                
+                return z
         elif 'IdentifyQ' in checkPOST:
             print("IQ")
             form = QuestionForm(request.POST or None)
@@ -104,6 +114,7 @@ class ViewsManager():
         question.delete()
 
     def SearchManager(self, form, request):
+        print(request.POST)
         room = form.save(commit=False)
         room1 = {}
         room.created_by = User.objects.get(id=request.user.id)
@@ -150,14 +161,17 @@ class ViewsManager():
                             'roomID': roomID, 'voting': votingIDs2}
         return ReturnDictionary
 
-    def VoteManager(self, form, request):
-
+    def VoteManager(self, form, temp1):
+       
         score = form.save(commit=False)
+        print(score)
+        #score.value=temp1['value']
         qv = QuestionsVote.objects.filter(user_id=User.objects.get(
-            id=request.user.id), question_id=request.POST.get('question_id'))
+            id=temp1['user_id']), question_id=temp1['question_id'])
         score.user_id = User.objects.get(
-            id=request.user.id)
-
+            id=temp1['user_id'])
+        score.value=temp1['voting']
+        print(score)
         if(qv is None):
             score.save()
         else:
@@ -165,7 +179,7 @@ class ViewsManager():
             qv.delete()
             score.save()
         score1=Question.objects.filter(id=score.question_id.id).values()
-        #print(list(score1))
+        print(list(score1))
         return list(score1)
     def AddQManager(self, roomID, form, request):
         question = form.save(commit=False)

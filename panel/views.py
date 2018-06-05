@@ -20,13 +20,8 @@ from .mixins import AjaxFormMixin
 import json
 from panel.ViewsManager import ViewsManager
 from django.core import serializers
-<<<<<<< HEAD
-
-#For sign up
-=======
 from django.views.decorators.csrf import csrf_exempt
 # For sign up
->>>>>>> origin/RoomsAndQuestions5
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
@@ -65,27 +60,12 @@ def ShowQuestions(request, roomID):
     print("Test")
     return render(request, 'panel/Questions.html', Manager.ShowQManager(roomID, request))
 
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/RoomsAndQuestions5
 def signup(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-<<<<<<< HEAD
-            username = form.cleaned_data.get('username')
-            raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=raw_password)
-            login(request, user)
-            return render(request, 'panel/home.html')
-    else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
-=======
             Manager.SignUpManager(form, request)
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})
->>>>>>> origin/RoomsAndQuestions5

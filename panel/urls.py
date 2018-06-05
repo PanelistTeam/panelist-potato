@@ -27,11 +27,7 @@ urlpatterns = [
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^signup/$', core_views.signup, name='signup'),
-<<<<<<< HEAD
-    url(r'^oauth/', include('social_django.urls', namespace='social')),   
-=======
     url(r'^oauth/', include('social_django.urls', namespace='social')),
->>>>>>> origin/RoomsAndQuestions5
     url(r'^$', views.home, name='home'),
     url(r'^search/', views.search, name='search'),
     #url(r'^add/', views.addRoom, name='AddRoom'),

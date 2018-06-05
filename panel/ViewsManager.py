@@ -76,38 +76,14 @@ class ViewsManager():
         newContent.score = question.score
         newContent.time_submitted=question.time_submitted
         newContent.previous_version = question
-<<<<<<< HEAD
-        contentVerify= Question.objects.filter(content=newContent.content,previous_version=newContent.previous_version)        
-        if(len(contentVerify)==0):
-            newContent.save()    
-=======
         contentVerify = Question.objects.filter(
             content=newContent.content, previous_version=newContent.previous_version)
         if(len(contentVerify) == 0):
             newContent.save()
->>>>>>> origin/RoomsAndQuestions5
             prevq = Question.objects.filter(current_version=question)
             for i in prevq:
                 i.current_version = newContent
                 i.save()
-<<<<<<< HEAD
-                print("i:")
-                print(i)
-                print(i.current_version)
-        
-            question.current_version = newContent
-            question.save()
-
-            votes = QuestionsVote.objects.filter(question_id=question.id)
-        
-            for i in votes:
-                i.question_id = newContent
-                i.save()
-        #return question
-        else :
-            print("Already edited")
-    def DeleteManager(self,question,form):
-=======
 
             question.current_version = newContent
             question.save()
@@ -122,7 +98,6 @@ class ViewsManager():
             print("Already edited")
 
     def DeleteManager(self, question):
->>>>>>> origin/RoomsAndQuestions5
         votes = QuestionsVote.objects.filter(question_id=question.id)
         for i in votes:
             i.question_id = None
@@ -139,16 +114,11 @@ class ViewsManager():
         for i in questions:
             i.delete()
         question.delete()
-<<<<<<< HEAD
-    def SearchManager(self, form,request):
-        room = form.save(commit=False)            
-=======
 
     def SearchManager(self, form, request):
         print(request.POST)
         room = form.save(commit=False)
         room1 = {}
->>>>>>> origin/RoomsAndQuestions5
         room.created_by = User.objects.get(id=request.user.id)
         room.time_created = datetime.datetime.now()
         roomcheck = Askroom.objects.filter(
@@ -176,13 +146,8 @@ class ViewsManager():
             question.save()
 
         voting = QuestionsVote.objects.filter(
-<<<<<<< HEAD
-        user_id=User.objects.get(id=request.user.id ))
-    
-=======
             user_id=User.objects.get(id=request.user.id))
 
->>>>>>> origin/RoomsAndQuestions5
         votingIDs = []
         votingIDs2 = []
         votingValues = []
@@ -201,13 +166,6 @@ class ViewsManager():
     def VoteManager(self, form, temp1):
        
         score = form.save(commit=False)
-<<<<<<< HEAD
-        qv = QuestionsVote.objects.filter(user_id=User.objects.get(
-        id=request.user.id ), question_id=request.POST.get('question_id'))
-        score.user_id = User.objects.get(
-        id=request.user.id)
-        print (qv)       
-=======
         print(score)
         #score.value=temp1['value']
         qv = QuestionsVote.objects.filter(user_id=User.objects.get(
@@ -216,7 +174,6 @@ class ViewsManager():
             id=temp1['user_id'])
         score.value=temp1['voting']
         print(score)
->>>>>>> origin/RoomsAndQuestions5
         if(qv is None):
             score.save()
         else:
@@ -232,21 +189,12 @@ class ViewsManager():
         question.askroom_id = Askroom.objects.get(id=roomID)
         question.score = 0
         question.submitted_by = User.objects.get(
-<<<<<<< HEAD
-            id=request.user.id )
-        question.content=request.POST.get('content')
-        qstn= Question.objects.filter(submitted_by=User.objects.get(
-        id=request.user.id ), content=request.POST.get('content'))
-        
-        if(len(qstn)==0):
-=======
             id=temp1['social_created_by'])
         question.content = temp1['content']
         qstn = Question.objects.filter(submitted_by=User.objects.get(
             id=temp1['social_created_by']), content=temp1['content'])
        
         if(len(qstn) == 0):
->>>>>>> origin/RoomsAndQuestions5
             question.save()
         else:
             print("Already posted")

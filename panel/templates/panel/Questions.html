@@ -7,14 +7,6 @@
 	
 <ul>
 <b>Create new question:</b>
-<<<<<<< HEAD
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="CreateQ" >
-{% csrf_token %}
-content : <br><input type="text" name="content"/></br>
-
-<input type="hidden" value="user.username" name="social_created_by" />
-<input type="hidden" name="IdentifyQ" />
-=======
   <form   action= "#" method="POST" id="NewQ" >
 {% csrf_token %}
 content : <br><input type="text" name="content" id="content"/></br>
@@ -22,7 +14,6 @@ content : <br><input type="text" name="content" id="content"/></br>
 <input type="hidden" value="{{user.id}}" name="social_created_by"  id="CreatedBy"/>
 <input type="hidden" name="IdentifyQ"  id="IdentifyQ"/>
 <input type="hidden" value="{{roomID}}" name="askroom_id" id="askroomID"/>
->>>>>>> origin/RoomsAndQuestions5
 <input type="submit" value="Create question"/>
 </form>
 
@@ -44,11 +35,6 @@ content : <br><input type="text" name="content" id="content"/></br>
 <input type="hidden" name="qID" value={{question.id}} id="qID" class="qID"/>
 </form>
 Edit question:
-<<<<<<< HEAD
-<form action="#" method="POST">
-{% csrf_token %}
-content : <p><input type="text" name="content"/><br/></p>
-=======
 <form action="#" method="POST" id="Edits" class="Edits" >
 {% csrf_token %}
 content : <p><input type="text" name="content" id="content" class= "content"/><br/></p>
@@ -56,7 +42,6 @@ content : <p><input type="text" name="content" id="content" class= "content"/><b
     <option value="No">No</option>
     <option value="Yes">Yes</option>    
 </select>
->>>>>>> origin/RoomsAndQuestions5
 <input type="submit" value="Edit"/>
 <input type="hidden" name="IdentifyEdit"  id="IdentifyEdit"/>
 <input type="hidden" name="qID" value="{{question.id}}" id="qID" />

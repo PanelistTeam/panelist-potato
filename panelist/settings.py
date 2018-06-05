@@ -25,7 +25,7 @@ except ImportError:
 
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["172.16.0.4"]
 
 
 # Application definition

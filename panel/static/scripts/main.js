@@ -6,29 +6,25 @@ $('#rooms').on('submit', function(event){
 $('.voting').on('submit', function(event){
 	console.log("voting")
     event.preventDefault();
-	//console.log($('.question_id1')[2]['value'])
-    console.log($('.voting')[0]['value']['value'])
-    
-     console.log($('.voting')[2]['IdentifyVote'])
-      console.log($('#value').val())
-   // console.log($('#question_id'))
-   // console.log("qid1")
-   // console.log($('#iteration').val())
+	
    vote();
 	
 });
-$('#Edits').on('submit', function(event){
+$('.Edits').on('submit', function(event){
     event.preventDefault();
+    console.log($('.Edits')[0]['content']['value'])
     EditQ();
 });
-$('#Delete').on('submit', function(event){
+$('.Delete').on('submit', function(event){
     event.preventDefault();
+   
     DeleteQ();
 });
 $('#NewQ').on('submit', function(event){
     event.preventDefault();
     console.log("newQ")
     console.log($('#askroomID').val())
+    console.log( $('#CreatedBy').val())
     newQ();
 });
 /*------Actual Methods---------*/
@@ -91,56 +87,88 @@ function vote() {
 	}
 //------------------------------------------------------------------------------------------------------//
 function EditQ() {
+	list=[]
+    for (i = 0; i < $('.Edits').length; i++) { 
+    dict={'confirm':$('.Edits')[i]['confirm']['value'],
+          'question_id' : $('.Edits')[i]['qID']['value'],  
+          'content':    $('.Edits')[0]['content']['value'],       
+          	'IdentifyEdit' : " "                      
+	    	        }
+    if(dict['confirm']== 'Yes')
+    {
+    list.push(dict)
+    }}
+    //jsonText=$.serialize(list)
+     jsonText=JSON.stringify(list)
+    console.log(jsonText)
 	$.ajax({
-	    url : " ", 
-	    type : "POST", 
-	    dataType: "json",
-	    data : { 
-	    	     content : $('#content').val(),	    	     
-	    	     IdentifyEdit: $('#IdentifyEdit').val(),
-	    	   
-	    	     qID: $('#qID').val()
-	    
-	    
-	    }, 
-	    
-	    success : function(json) {
-	        $('#data').val(''); 
-	        console.log(json); 
-	        console.log("success"); 
-	        location.reload();
-	        
-	    },
-
-	    
-	    error : function(xhr,errmsg,err) {
-	    	console.log("fail!")
-	        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-	            " <a href='#' class='close'>&times;</a></div>"); 
-															
-	        console.log(xhr.status + ": " + xhr.responseText); 
-																
-	    }
-	});
-
-	}
-//------------------------------------------------------------------------------------------------------//
-function DeleteQ() {
-	$.ajax({
-	    url : "search/", // the endpoint
+	    url : " ", // the endpoint
 	    type : "POST", // http method
-	    data : { title : $('#title').val(),
-	    	     public : $('#public').val(),
-	    	     description : $('#description').val(),
-	    	     social_created_by: $('#CreatedBy').val(),
-	    	  
+	    traditional: true,
+	    data : {'data1':jsonText}  	    
 	    
 	    
-	    }, // data sent with the post request
+	    , // data sent with the post request
 
 	    // handle a successful response
 	    success : function(json) {
-	        $('#data').val(''); // remove the value from the input
+	         for (i = 0; i < $('.Edits').length; i++) { 
+             $('.Edits')[i]['confirm']['value']='No'
+             $('.Edits')[0]['content']['value']= ' '
+          	
+             }
+	        console.log(json); // log the returned json to the console
+	        console.log("success"); // another sanity check
+	        location.reload();
+	        
+	        
+	    },
+
+	    // handle a non-successful response
+	    error : function(xhr,errmsg,err) {
+	    	console.log("fail!")
+	        $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+	            " <a href='#' class='close'>&times;</a></div>"); // add the error
+															// to the dom
+	        console.log(xhr.status + ": " + xhr.responseText); // provide a bit
+																// more info about
+																// the error to the
+																// console
+	    }
+	});
+	return false;
+	}
+//------------------------------------------------------------------------------------------------------//
+function DeleteQ() {
+    list=[]
+    for (i = 0; i < $('.Delete').length; i++) { 
+    dict={'confirm':$('.Delete')[i]['confirm']['value'],
+          'question_id' : $('.Delete')[i]['qID']['value'],           
+          	'IdentifyDelete' : " "                      
+	    	        }
+    if(dict['confirm']== 'Yes')
+    {
+    list.push(dict)
+    }}
+    //jsonText=$.serialize(list)
+     jsonText=JSON.stringify(list)
+    console.log(jsonText)
+	$.ajax({
+	    url : " ", // the endpoint
+	    type : "POST", // http method
+	    traditional: true,
+	    data : {'data1':jsonText}  	    
+	    
+	    
+	    , // data sent with the post request
+
+	    // handle a successful response
+	    success : function(json) {
+	         for (i = 0; i < $('.Delete').length; i++) { 
+             $('.Delete')[i]['confirm']['value']='No'
+           
+          	
+             }
 	        console.log(json); // log the returned json to the console
 	        console.log("success"); // another sanity check
 	        location.reload();
@@ -164,15 +192,19 @@ function DeleteQ() {
 	}
 //------------------------------------------------------------------------------------------------------//
 function newQ() {
-$.ajax({
-    url : " ", 
-    type : "POST", 
-    data : { title : $('#title').val(),
+    data1={title : $('#title').val(),
     	     askroomID: $('#askroomID').val(),
     	     content : $('#content').val(),
     	     social_created_by: $('#CreatedBy').val(),
     	     IdentifyQ: $('#IdentifyQ').val(),
-    	  
+             social_created_by: $('#CreatedBy').val()
+    }
+        
+    jsonText=JSON.stringify(data1)
+$.ajax({
+    url : " ", 
+    type : "POST", 
+    data : { 'data1':jsonText
     
     
     }, 

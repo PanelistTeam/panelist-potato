@@ -22,6 +22,7 @@ class ViewsManager():
         login(request, user)
     def ChooseFormManager(self, request, roomID,checkPOST):
         z=request.POST
+        print(z)
         print(z['data1'])
         temp=request.POST.get('data1')
         k=""
@@ -36,26 +37,27 @@ class ViewsManager():
                 z=JsonResponse(self.VoteManager(form, temp1),safe=False)
                 print(z)                
                 return z
-        elif 'IdentifyQ' in checkPOST:
+        elif 'IdentifyQ' in temp1:
             print("IQ")
             form = QuestionForm(request.POST or None)
             if form.is_valid():
-                return JsonResponse(self.AddQManager(roomID, form, request),safe=False)
+                return JsonResponse(self.AddQManager(roomID, form, temp1),safe=False)
 
-        elif 'IdentifyEdit' in checkPOST:
+        elif 'IdentifyEdit' in temp1:
             print("IE")
             qst = Question.objects.filter(
-                id=request.POST.get('qID').replace("/", ""))
-            form = QuestionForm(request.POST or None)
+                id=temp1['question_id'])
+            form = QuestionForm(temp1 or None)
             if form.is_valid():
                 return JsonResponse(self.EditManager(qst[0], form),safe=False)
-        elif 'IdentifyDelete' in checkPOST:
+        elif 'IdentifyDelete' in temp1:
             print("ID")
             qst = Question.objects.filter(
-                id=request.POST.get('qID').replace("/", ""))
-            form = QuestionForm(request.POST or None)
+                id=temp1['question_id'])
+            print(temp1['question_id'])
+            form = QuestionForm(temp1 or None)
             if form.is_valid():
-                return JsonResponse(self.DeleteManager(qst[0], form),safe=False)
+                return JsonResponse(self.DeleteManager(qst[0]),safe=False)
 
     def VersionsManager(self, questionID):
         question = Question.objects.filter(id=questionID)
@@ -95,7 +97,7 @@ class ViewsManager():
         else:
             print("Already edited")
 
-    def DeleteManager(self, question, form):
+    def DeleteManager(self, question):
         votes = QuestionsVote.objects.filter(question_id=question.id)
         for i in votes:
             i.question_id = None
@@ -181,16 +183,16 @@ class ViewsManager():
         score1=Question.objects.filter(id=score.question_id.id).values()
         print(list(score1))
         return list(score1)
-    def AddQManager(self, roomID, form, request):
+    def AddQManager(self, roomID, form, temp1):
         question = form.save(commit=False)
         question.time_submitted = datetime.datetime.now()
         question.askroom_id = Askroom.objects.get(id=roomID)
         question.score = 0
         question.submitted_by = User.objects.get(
-            id=request.user.id)
-        question.content = request.POST.get('content')
+            id=temp1['social_created_by'])
+        question.content = temp1['content']
         qstn = Question.objects.filter(submitted_by=User.objects.get(
-            id=request.user.id), content=request.POST.get('content'))
+            id=temp1['social_created_by']), content=temp1['content'])
        
         if(len(qstn) == 0):
             question.save()

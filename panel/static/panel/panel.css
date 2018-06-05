@@ -1,10 +1,21 @@
+.container{
+    margin:0px;
+    padding: 0px;
+    width: 100%;
+    max-width: 2000px;
+    height: 100%;
+}
+
 header{
     margin-bottom: 100px;
+    width: 100%;
+    z-index: 25;
 }
 
 body {
-	height: 800px;
-	width: 1000px;
+    max-height: 100vh;
+	height: 100%;
+	width: 100%;
 	background: white;
 	margin:	auto;
 	padding: 0;
@@ -45,9 +56,10 @@ button:hover  {
 }
 
 .lead {
-    background-color: #005800;
+    background-color: blue;
     color: white;
     padding: 14px 25px;
+    margin: 10px;
     width:  150px;
     text-align: center; 
     text-decoration: none;
@@ -56,7 +68,7 @@ button:hover  {
 }
 
 a:hover.lead , a:active.lead  {
-    background-color: #017401;
+    background-color: rgb(5, 45, 175);
     color: white;
     text-decoration: none;
 }
@@ -73,7 +85,7 @@ a:hover.lead , a:active.lead  {
 .login{
     margin-top: 100px;
     margin: auto;
-    width: 50%;
+    width: 400px;
     border: 3px solid green;
     padding: 20px;
     text-align: center;
@@ -107,14 +119,15 @@ h1{
     margin: auto;
 }
 .right-panel{
+    
+    position: fixed;
     padding-top: 80px;
-    margin-top: -100px;
+    top: 0px;
     padding-bottom: 176px;
     float: right;
-    width: auto;
-    z-index: 10;
+    z-index: -2;
     right: 0;
-    height: 556px;
+    height: 100vh;
     background-color: rgba(92, 155, 238, 0.486);
     width: 40%;
 }
@@ -131,16 +144,17 @@ h1{
     margin-right: auto;
 }
 .left-panel{
+
+    position: fixed;
+    top: 0px;
     float: left;
     background-image: url("homeback.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: -100px;
     width: 60%;
-    height: 60%;
+    height: 100vh;
     z-index: -1;
     padding-left: 10px;
     padding-top: 100px;
-    padding-bottom: 400px;
 }

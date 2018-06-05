@@ -4,15 +4,25 @@
 <p><a  href="{% url 'search' %}">Choose another room </a></p>
 {% if user.is_authenticated %}
 	
-	<p><a class="lead" href="http://127.0.0.1:8000/panel/AddQuestion/{{roomID}}">AddQuestion</a></p>
+	
 <ul>
 <b>Create new question:</b>
+<<<<<<< HEAD
   <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="CreateQ" >
 {% csrf_token %}
 content : <br><input type="text" name="content"/></br>
 
 <input type="hidden" value="user.username" name="social_created_by" />
 <input type="hidden" name="IdentifyQ" />
+=======
+  <form   action= "#" method="POST" id="NewQ" >
+{% csrf_token %}
+content : <br><input type="text" name="content" id="content"/></br>
+
+<input type="hidden" value="{{user.id}}" name="social_created_by"  id="CreatedBy"/>
+<input type="hidden" name="IdentifyQ"  id="IdentifyQ"/>
+<input type="hidden" value="{{roomID}}" name="askroom_id" id="askroomID"/>
+>>>>>>> origin/RoomsAndQuestions5
 <input type="submit" value="Create question"/>
 </form>
 
@@ -23,32 +33,43 @@ content : <br><input type="text" name="content"/></br>
 
   {% if question.submitted_by|stringformat:'s' == user.get_username %}
  
-  <form action="" method="POST">
+  <form action="" method="POST" class="Delete">
 {% csrf_token %}
-
-<input type="submit" value="Delete question"/>
+<select name="confirm" class="confirm" value=" "  id="confirm">
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>    
+</select>
+<input type="submit" value="Delete question" />
 <input type="hidden" name="IdentifyDelete"/>
-<input type="hidden" name="qID" value={{question.id}}/>
+<input type="hidden" name="qID" value={{question.id}} id="qID" class="qID"/>
 </form>
 Edit question:
+<<<<<<< HEAD
 <form action="#" method="POST">
 {% csrf_token %}
 content : <p><input type="text" name="content"/><br/></p>
+=======
+<form action="#" method="POST" id="Edits" class="Edits" >
+{% csrf_token %}
+content : <p><input type="text" name="content" id="content" class= "content"/><br/></p>
+<select name="confirm" class="confirm" value=" "  id="confirm">
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>    
+</select>
+>>>>>>> origin/RoomsAndQuestions5
 <input type="submit" value="Edit"/>
-<input type="hidden" name="IdentifyEdit"/>
-<input type="hidden" name="qID" value="{{question.id}}" />
+<input type="hidden" name="IdentifyEdit"  id="IdentifyEdit"/>
+<input type="hidden" name="qID" value="{{question.id}}" id="qID" />
+
 </form>
-{% endif %}
-  
-
-
+{% endif %} 
  <p><b>content of question:</b></p>{{ question.content }}</p>
  {% if question.previous_version is not None %}
- <p> This question has been edited. To see all versions click <a href="http://127.0.0.1:8000/panel/{{roomID}}/ShowVersions/{{question.id}}/">here</a></p>
+ <p> This question has been edited. To see all versions click <a href="{% url 'ShowQuestion' roomID question.id %}">here</a></p>
  {% endif %}
  <p><b>question creator: </p> </b><p> {{ question.submitted_by }}</p>
  <p><b>date of creation: </p></b>{{ question.time_submitted }}</p> 
-<!-- <p><b>room id:</p></b><p> {{ question.askroom_id }}</p> -->
+
  <p><b>question id: </p></b>{{question.id}}</p>
   <p><b>score :</p></b><p> {{ question.score }}</p> 
 {% if question.submitted_by|stringformat:'s' != user.get_username %}
@@ -57,19 +78,22 @@ content : <p><input type="text" name="content"/><br/></p>
   {% else %}
    <p><b>Edit your vote: </p></b>
    {% endif %}
-  <form   action= "http://127.0.0.1:8000/panel/ShowQuestions/{{roomID}}/" method="POST" name="Vote" >
-{% csrf_token %}
-
-<select name="value" value="0" >
+ <form  class ="voting" method="POST"  >
+<select name="value" class="value" value=" "  id="value">
+    <option value=" "></option>
     <option value="0">0</option>
     <option value="1">+</option>
     <option value="-1">-</option>      
-  </select>
- <input type="hidden"  name="question_id" value="{{question.id}}">
-<input type="hidden"  name="user_id" value="{{user.id}}" >
+</select>
+ <input type="hidden"  name="question_id" value={{question.id}} class="question_id1" id="question_id"/>
+
+<input type="hidden"  name="user_id" value="{{user.id}}" class="user_id" id="user_id" />
+<input type="hidden"  name="IdentifyVote" class= "IdentifyVote" id= "IdentifyVote"/>
+
 <input type="submit" value="Vote"/>
-<input type="hidden"  name="IdentifyVote" />
+
 </form>
+
  {% endif %}
   <p>------------------------------------------------------------------------------</p>    
 
@@ -79,48 +103,6 @@ content : <p><input type="text" name="content"/><br/></p>
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
-    <script>
-$('#voteform').on('submit', function(event){
-    event.preventDefault();
-    event.stopPropagation();
-    console.log("form submitted!")  // sanity check
-    create_post();
-});
-/*
-$("#voteform").submit(function(event){
- event.preventDefault();
-    event.stopPropagation();
-$.ajax({ data: $(this).serialize(),
-type: $(this).attr('method'),
-
-dataType: "json",
-console.log("asda"),
-success: function(response){
-console.log("asda");
- if(response['success']) {
-                         $("#votemessage").html("<div class='alert alert-success'>Succesfully voted, thank you!</div>");
-                         $("#voteform").addClass("hidden");
-                     } 
-                     if(response['error']) {
-                         $("#voteform").html("<div class='alert alert-danger'>" +
-			                   response['error']['comment'] +"</div>");
-                     } 
-                
-              
-           }
-   
-})});
-*/
-
-
-
-function create_post() {
-
-event.stopPropagation();
-    console.log("create post is working!") // sanity check
-    console.log($('#post-text').val())
-    
-};
-</script>
+ <script  type="text/javascript"  src="\static\scripts\main.js"></script>
 {% endblock content %}
 

@@ -2,7 +2,11 @@
 
 {% block content %}
 <h2>Sign up</h2>
+<<<<<<< HEAD
   <form method="post" action="#">
+=======
+  <form method="post" action= "{% url 'signup' %}">
+>>>>>>> origin/RoomsAndQuestions5
     {% csrf_token %}
     {% for field in form %}
       <p>

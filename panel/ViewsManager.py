@@ -100,8 +100,7 @@ class ViewsManager():
     def DeleteManager(self, question):
         votes = QuestionsVote.objects.filter(question_id=question.id)
         for i in votes:
-            i.question_id = None
-            i.save()
+            i.delete()
         questions = Question.objects.filter(current_version=question)
         question.previous_version = None
         question.current_version = None

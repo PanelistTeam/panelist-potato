@@ -138,6 +138,7 @@ function voteplus() {
 				  
 				 }
 				console.log($('.votingminus'))
+				console.log($('value'));
 				console.log(json); // log the returned json to the console
 				console.log("success"); // another sanity check
 				location.reload();
@@ -340,3 +341,4 @@ $.ajax({
 });
 return false;
 }
+

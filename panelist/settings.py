@@ -25,7 +25,7 @@ except ImportError:
 
 
 
-ALLOWED_HOSTS = ["172.16.0.4"]
+ALLOWED_HOSTS = ["172.16.0.4", "127.0.0.1"]
 
 
 # Application definition
@@ -68,6 +68,10 @@ TEMPLATES = [
                  'social_django.context_processors.backends',  # <- Here
                 'social_django.context_processors.login_redirect', # <- Here
             ],
+            'libraries':{
+            'tag': 'panel.templatestags.tag',
+
+            }
         },
     },
 ]

@@ -3,11 +3,18 @@ $('#rooms').on('submit', function(event){
     event.preventDefault();  
     create_room();
 });
-$('.voting').on('submit', function(event){
-	console.log("voting")
+$('.votingplus').on('submit', function(event){
+	console.log("votingplus")
     event.preventDefault();
 	
-   vote();
+   voteplus();
+	
+});
+$('.votingminus').on('submit', function(event){
+	console.log("votingminus")
+    event.preventDefault();
+	
+   voteminus();
 	
 });
 $('.Edits').on('submit', function(event){
@@ -28,20 +35,27 @@ $('#NewQ').on('submit', function(event){
     newQ();
 });
 /*------Actual Methods---------*/
+var currentQuestionId = 0;
 
-function vote() {
+function setQuestion(i){
+console.log(i);
+currentQuestionId = i;
+}
+function voteplus() {
     list=[]
-    for (i = 0; i < $('.voting').length; i++) { 
-    dict={'voting':$('.voting')[i]['value']['value'],
-          'question_id' : $('.voting')[i]['question_id']['value'],
-           'user_id': $('.voting')[i]['user_id']['value'],
+    for (i = 0; i < $('.votingplus').length; i++) {
+		console.log(i)
+    dict={'voting':$('.votingplus')[i]['value']['value'],
+          'question_id' : $('.votingplus')[i]['question_id']['value'],
+		   'user_id': $('.votingplus')[i]['user_id']['value'],
           	'IdentifyVote' : " "
     
 	    	     
                  
 	    	    
-    }
-    if(dict['voting']!= " ")
+	}
+	console.log("id"+currentQuestionId)
+    if(dict['voting']!= " "  && dict['question_id']==currentQuestionId)
     {
     list.push(dict)
     }}
@@ -59,12 +73,12 @@ function vote() {
 
 	    // handle a successful response
 	    success : function(json) {
-	         for (i = 0; i < $('.voting').length; i++) { 
-             $('.voting')[i]['value']['value']=' '
+	         for (i = 0; i < $('.votingplus').length; i++) { 
+             $('.votingplus')[i]['value']['value']=' '
            
           	
              }
-            console.log($('.voting'))
+            console.log($('.votingplus'))
 	        console.log(json); // log the returned json to the console
 	        console.log("success"); // another sanity check
 	        location.reload();
@@ -85,6 +99,65 @@ function vote() {
 	});
 	return false;
 	}
+
+	function voteminus() {
+		list=[]
+		for (i = 0; i < $('.votingminus').length; i++) {
+			console.log(i)
+		dict={'voting':$('.votingminus')[i]['value']['value'],
+			  'question_id' : $('.votingminus')[i]['question_id']['value'],
+			   'user_id': $('.votingminus')[i]['user_id']['value'],
+				  'IdentifyVote' : " "
+		
+					 
+					 
+					
+		}
+		console.log("id"+currentQuestionId)
+		if(dict['voting']!= " "  && dict['question_id']==currentQuestionId && list.length == 0)
+		{
+		list.push(dict)
+		}}
+		//jsonText=$.serialize(list)
+		 jsonText=JSON.stringify(list)
+		console.log(jsonText)
+		$.ajax({
+			url : " ", // the endpoint
+			type : "POST", // http method
+			traditional: true,
+			data : {'data1':jsonText}  	    
+			
+			
+			, // data sent with the post request
+	
+			// handle a successful response
+			success : function(json) {
+				 for (i = 0; i < $('.votingminus').length; i++) { 
+				 $('.votingminus')[i]['value']['value']=' '
+			   
+				  
+				 }
+				console.log($('.votingminus'))
+				console.log(json); // log the returned json to the console
+				console.log("success"); // another sanity check
+				location.reload();
+				
+			},
+	
+			// handle a non-successful response
+			error : function(xhr,errmsg,err) {
+				console.log("fail!")
+				$('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+					" <a href='#' class='close'>&times;</a></div>"); // add the error
+																// to the dom
+				console.log(xhr.status + ": " + xhr.responseText); // provide a bit
+																	// more info about
+																	// the error to the
+																	// console
+			}
+		});
+		return false;
+		}
 //------------------------------------------------------------------------------------------------------//
 function EditQ() {
 	list=[]

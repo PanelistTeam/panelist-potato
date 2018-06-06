@@ -63,20 +63,34 @@ content : <p><input type="text" name="content" id="content" class= "content"/><b
   {% else %}
    <p><b>Edit your vote: </p></b>
    {% endif %}
- <form  class ="voting" method="POST"  >
-<select name="value" class="value" value=" "  id="value">
-    <option value=" "></option>
-    <option value="0">0</option>
-    <option value="1">+</option>
-    <option value="-1">-</option>      
-</select>
- <input type="hidden"  name="question_id" value={{question.id}} class="question_id1" id="question_id"/>
-
+<form  class ="votingplus" method="POST"  >
+    {% load tag %}
+    {% checkvote user.username question.content as uservote %}
+  
+{% if uservote == 1 %}
+<input type="hidden"  name="value" class="value" value="0"  id="value"/>
+{% else %}
+<input type="hidden"  name="value" class="value" value="1"  id="value"/>
+{% endif %}
+<input type="hidden"  name="question_id" value={{question.id}} class="question_id" id="question_id"/>
 <input type="hidden"  name="user_id" value="{{user.id}}" class="user_id" id="user_id" />
 <input type="hidden"  name="IdentifyVote" class= "IdentifyVote" id= "IdentifyVote"/>
 
-<input type="submit" value="Vote"/>
+<input type="submit" onclick="setQuestion(question_id.value)" value="1"/>
+</form>
 
+<form  class ="votingminus" method="POST"  >
+
+{% if uservote == -1 %}
+<input type="hidden"  name="value" class="value" value="0"  id="value"/>
+{% else %}
+<input type="hidden"  name="value" class="value" value="-1"  id="value"/>
+{% endif %}
+<input type="hidden"  name="question_id" value={{question.id}} class="question_id" id="question_id"/>
+<input type="hidden"  name="user_id" value="{{user.id}}" class="user_id" id="user_id" />
+<input type="hidden"  name="IdentifyVote" class= "IdentifyVote" id= "IdentifyVote"/>
+
+<input type="submit" onclick="setQuestion(question_id.value)" value="-1"/>
 </form>
 
  {% endif %}

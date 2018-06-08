@@ -1,32 +1,43 @@
 {% extends "panel/layout.html" %}
-
 {% block content %}
 {% if user.is_authenticated %}
-	<h1>Create room </h1>
-<form action="#" method="POST">
+	<h1 style="color:black">Create room </h1>
+<form action="#" method="POST" id="rooms">
 {% csrf_token %}
-Title : <input type="text" name="title"/><br/>
+Title : <input type="text" name="title" id="title"/><br/>
 <p>Type of room: </p>
-<select name="public">
+<select name="public" id= "public"'>
     <option value="True">Public</option>
     <option value="False">Private</option>       
   </select> 
   <br><br>
 description : <br/>
-<textarea cols="35" rows="3" name="description">
+<textarea cols="35" rows="3" name="description" id="description">
 </textarea><br/>
 <input type="submit" value="Create room"/>
-<input type="hidden" value="user.username" name="social_created_by" />
+<input type="hidden" value="{{user.id}}" name="social_created_by" id="CreatedBy" />
+<input type="hidden" name="IdentifyAddRoom"/>
 </form>
 	<!--<h4>Search: </h4>  <input type="text" name="title"/><br/> -->
-    <p></p
+    <p></p>
      <p>------------------------------------------------------------------------------</p>      
         {% for room in rooms %}
 	
+  {% if room.created_by|stringformat:'s' == user.get_username %}
     
-	        
+	         <form action="" method="POST" class="DeleteRoom">
+{% csrf_token %}
+<select name="confirm" class="confirm" value=" "  id="confirm">
+    <option value="No">No</option>
+    <option value="Yes">Yes</option>    
+</select>
+<input type="submit" value="Delete room" />
+<input type="hidden" name="IdentifyDeleteRoom"/>
+<input type="hidden" name="rID" value={{room.id}} id="rID" class="rID"/>
+</form>
+{% endif %}
 			    <div>
-                <h5>Name of the room: <a href="http://127.0.0.1:8000/panel/ShowQuestions/{{room.id}}">{{ room.title }}</a></h5>
+                <h5>Name of the room: <a href="{% url 'ShowQuestions' room.id %}">{{ room.title }}</a></h5>
                 <p>date of creation: {{ room.time_created }}</p>      
      	        <p> description: {{room.description}}</p>
 				 <p> room id: {{room.id}}</p>
@@ -43,4 +54,8 @@ description : <br/>
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
 	{% endif %}
+    
+   <script  src="\static\scripts\main.js"></script>
 {% endblock content %}
+    
+

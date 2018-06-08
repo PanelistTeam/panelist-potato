@@ -1,0 +1,185 @@
+.container{
+    margin:0px;
+    padding: 0px;
+    width: 100%;
+    max-width: 2000px;
+    height: 100%;
+}
+
+header{
+    margin-bottom: 100px;
+    width: 100%;
+    z-index: 25;
+}
+
+body {
+    max-height: 100vh;
+	height: 100%;
+	width: 100%;
+	background: white;
+	margin:	auto;
+	padding: 0;
+}
+
+.navbar {
+    position: static;
+  
+
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: blue;
+}
+
+.navbar-brand{
+    color: white;
+    font: "Open Sans";
+    font-size: 26px;
+    margin-left: 20%;
+	font: bold;
+}
+
+button {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    width:  150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+button:hover  {
+    background-color: rgb(5, 45, 175);
+    color: white;
+}
+
+.lead {
+    background-color: blue;
+    color: white;
+    padding: 14px 25px;
+    margin: 10px;
+    width:  150px;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+a:hover.lead , a:active.lead  {
+    background-color: rgb(5, 45, 175);
+    color: white;
+    text-decoration: none;
+}
+
+/*Login*/
+.navbarlogin {
+    float: left;
+    top: 0px;
+    margin-bottom: 20px;
+    padding: 0;
+    width: 1000px;
+    background: blue;
+}
+.login{
+    margin-top: 100px;
+    margin: auto;
+    width: 400px;
+    border: 3px solid green;
+    padding: 20px;
+    text-align: center;
+}
+
+
+
+label {
+    display: block;
+}
+
+p.or{
+    padding: auto;
+    margin-top: 20px;
+}
+
+img.sociallink{
+    width: 250px;
+    
+}
+
+/*Signup*/
+
+form.signup{
+        display: block;
+        margin-top: 100px;
+        margin: auto;
+        width: 400px;
+        border: 3px solid green;
+        padding: 20px;
+        text-align: center;
+}
+
+
+/*Home page*/
+h1{
+    color: white;
+    margin-left: 20px;
+    z-index: 20;
+}
+.my-grid{
+    width: 100%;
+    margin: auto;
+}
+.right-panel{
+    
+    position: fixed;
+    padding-top: 80px;
+    top: 0px;
+    padding-bottom: 176px;
+    float: right;
+    z-index: -2;
+    right: 0;
+    height: 100vh;
+    background-color: rgba(131, 177, 238, 0.486);
+    width: 40%;
+}
+.right-panel a{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.right-panel h2{
+    text-align: center;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.left-panel{
+
+    position: fixed;
+    top: 0px;
+    float: left;
+    background-image: url("homeback.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 60%;
+    height: 100vh;
+    z-index: -1;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 100px;
+}
+
+
+
+
+
+select {
+    /*-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: none;*/
+}

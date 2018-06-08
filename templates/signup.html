@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<h2>Sign up</h2>
-  <form method="post" action= "{% url 'signup' %}">
+
+  <form class="signup" method="post" action= "{% url 'signup' %}">
+    <h2>Sign up</h2>
     {% csrf_token %}
     {% for field in form %}
       <p>
@@ -16,6 +17,7 @@
         {% endfor %}
       </p>
     {% endfor %}
-    <button type="submit">Sign up</button>
+    <button type="submit" onclick="hidesignup()" >Sign up</button><br>
+    <a class="lead" class="submit" href="{% url 'home' %}">Back</a>
   </form>
 {% endblock %}

@@ -7,9 +7,10 @@
 }
 
 header{
-    margin-bottom: 100px;
+   margin-bottom: 10px;
     width: 100%;
     z-index: 25;
+    
 }
 
 body {
@@ -49,6 +50,7 @@ button {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: arial;
 }
 
 button:hover  {
@@ -66,6 +68,7 @@ button:hover  {
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+    font-family: arial;
 }
 
 a:hover.lead , a:active.lead  {
@@ -171,15 +174,4 @@ h1{
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 100px;
-}
-
-
-
-
-
-select {
-    /*-webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    display: none;*/
 }

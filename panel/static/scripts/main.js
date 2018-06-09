@@ -312,8 +312,8 @@ $.ajax({
 
     // handle a successful response
     success : function(json) {
-        $('#title').prop('');
-        $('#description').prop('');        // remove the value from the input
+        $('#title').val(' ');        
+        $('#description').val('');        // remove the value from the input
         console.log(json); // log the returned json to the console
         console.log("success"); // another sanity check
         location.reload();

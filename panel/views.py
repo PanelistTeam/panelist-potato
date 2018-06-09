@@ -11,15 +11,12 @@ from django.shortcuts import render
 
 Manager = ViewsManager()
 
-
 def ShowVersions(request, roomID, questionID):
 
     return render(request, 'panel/ShowVersions.html', {'roomID': roomID, 'questions': Manager.VersionsManager(questionID)})
 
-
 def home(request):
     return render(request, 'panel/home.html')
-
 
 @csrf_exempt
 def search(request):

@@ -6,6 +6,10 @@
     height: 100%;
 }
 
+a:hover{
+    color: rgb(190, 188, 188);
+}
+
 header{
    margin-bottom: 10px;
     width: 100%;
@@ -54,6 +58,28 @@ button {
 }
 
 button:hover  {
+    background-color: rgb(5, 45, 175);
+    color: white;
+}
+
+
+
+
+input.title{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    width:  150px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-family: arial;
+    margin: 2px;
+}
+
+input.title:hover  {
     background-color: rgb(5, 45, 175);
     color: white;
 }
@@ -174,4 +200,192 @@ h1{
     padding-left: 10%;
     padding-right: 10%;
     padding-top: 100px;
+}
+
+/*Search (List of askrooms)*/
+input{
+    background-color: white;
+    border-style:solid;
+    border-width: thin; 
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-family: arial;
+
+}
+
+input:hover  {
+    background-color: white;
+    color: black;
+}
+
+.asklistright{
+    position: fixed;
+    right: 40%;
+    margin: 10px;
+}
+
+button.addAskroomb{
+    display: block;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.addAskroom{
+    margin: 20px;
+    align-items: left;
+    justify-content: left;
+    text-align: left;
+    display: none;
+}
+
+.asklist{
+    left: 0px;
+    display: flex;
+    width: 45%;
+    border-top-style: groove;
+    border-width: thin;
+    text-align: left;
+    
+    align-items: left;
+    justify-content: left;
+    margin: auto;
+    margin-left: 20px;
+}
+
+.askcontent{
+    width: 90%;
+}
+
+a.askroomname{
+   font-size: 28px;
+   font-weight: bold;
+   margin-right: 100%;
+   margin-left: 3%;
+}
+
+p.askroomfdesc{
+    margin-top: 10px;
+    margin-left: 3%;
+    font-size: 16px;
+}
+
+p.askroomf1{
+    margin-left: 3%;
+    display:inline-block;
+    font-size: 11px;
+    color: gray;
+    bottom: 20px;
+    float: left;
+}
+
+p.askroomf2{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display:block;
+    font-size: 11px;
+    color: gray;
+    float: right;
+    bottom:0px;
+}
+
+select.confirm{
+    margin:2px;
+}
+
+.askdelete{
+    float: none;
+   
+}
+
+@media only screen and (max-width: 1200px){
+    .asklistright{
+        position: static;
+        
+        margin: 10px;
+    }
+}
+
+/*Questions*/
+
+input.qcont, input.qedit{
+    background-color: white;
+    border-style:solid;
+    border-width: thin; 
+    color: black;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-family: arial;
+}
+
+input.qcont:hover, input.qedit:hover  {
+    background-color: white;
+    color: black;
+}
+
+.quelist{
+    left: 0px;
+    display: block;
+    width: 45%;
+    border-top-style: groove;
+    border-width: thin;
+    text-align: left;
+
+    align-items: left;
+    justify-content: left;
+    margin: auto;
+    margin-left: 20px;
+}
+
+.qcontent{
+    margin-bottom: 15px;
+}
+
+p.question1{
+    margin-left: 3%;
+    display:inline-block;
+    font-size: 11px;
+    color: gray;
+    bottom: 20px;
+   
+}
+
+.question2{
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-top: auto;
+    margin-bottom: auto;
+    display:block;
+    font-size: 11px;
+    color: gray;
+    float: right;
+    bottom:0px;
+}
+
+.edit{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    width:  70px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    font-family: arial;
+    margin: 2px;
+}
+
+p.quest2{
+    margin-top: 10px;
+    margin-left: 3%;
+    font-size: 24px;
+
 }

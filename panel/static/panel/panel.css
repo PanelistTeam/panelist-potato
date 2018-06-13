@@ -349,7 +349,6 @@ input.qcont:hover, input.qedit:hover  {
 .quelist{
     left: 0px;
     display: block;
-    width: 45%;
     border-top-style: groove;
     border-width: thin;
     text-align: left;

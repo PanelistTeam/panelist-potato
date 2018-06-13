@@ -47,6 +47,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             Manager.SignUpManager(form, request)
+            return render(request, 'panel/home.html', {'form': form})
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})

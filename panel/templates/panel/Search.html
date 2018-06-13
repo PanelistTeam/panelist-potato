@@ -1,79 +1,88 @@
 {% extends "panel/layout.html" %}
 {% block content %}
-{% if user.is_authenticated %}
+	{% if user.is_authenticated %}
 
-<!--Add askroom -->
-<div class="asklistright">
-<button class="addAskroomb"  id="addAskroomb"  onclick="addAskroom()">Add askroom</button>
-</div>
-    <div class="addAskroom" style="display: none"  id="addAskroom">
-        <h1 style="color:black">Create room </h1>
-        <form action="#" method="POST" id="rooms">
-            {% csrf_token %}
-            Title : <input type="text" name="title" id="title"/><br/>
-            <p>Type of room: </p>
-            <select name="public" id= "public">
-                <option value="True">Public</option>
-                <option value="False">Private</option>       
-            </select> 
-            <br><br>
-            description : <br/>
-            <textarea cols="35" rows="3" name="description" id="description">
-            </textarea><br/>
-            <input class="title" type="submit" value="Create room"/>
-            <input type="hidden" value="{{user.id}}" name="social_created_by" id="CreatedBy" />
-            <input type="hidden" name="IdentifyAddRoom"/>
-        </form>
-    </div>
+		<!--Add askroom -->
+		<div id="rightColumn">
+			<!-- TODO: make it fixed again -->
+			<div class="asklistright">
+				<button class="addAskroomb" id="addAskroomb" onclick="addAskroom()">Add askroom</button>
+			</div>
+		</div>
+		<div id="leftColumn">
+			<div style="margin: 0 auto">
+				<div class="addAskroom" style="display: none" id="addAskroom">
+					<h1 style="color:black">Create room </h1>
+					<form action="#" method="POST" id="rooms" style="margin-left: 20px">
+						{% csrf_token %}
+						<p><label for="title">Title:</label><input type="text" name="title" id="title"/></p>
+						<p><label for="public">Type of room:</label>
+						<select name="public" id="public">
+							<option value="True">Public</option>
+							<option value="False">Private</option>
+						</select></p>
+						<label for="description">description:</label>
+						<textarea cols="35" rows="3" name="description" id="description"></textarea>
+						<input type="hidden" value="{{ user.id }}" name="social_created_by" id="CreatedBy"/>
+						<input type="hidden" name="IdentifyAddRoom"/>
+						<p><input class="title" type="submit" value="Create room"/></p>
+					</form>
+				</div>
+			</div>
 
-<!--List of askrooms -->
-{% for room in rooms %}
-<div class="asklist">
+			<!--List of askrooms -->
+			{% for room in rooms %}
+				<div class="asklist">
+					<div class="askcontent">
+						<h2><a class="askroomname" href="{% url 'ShowQuestions' room.id %}">{{ room.title }}</a></h2>
+						<p class="askroomfdesc"> Description: {{ room.description }}</p>
+						<p class="askroomf1"> Created by: {{ room.created_by }}</p>
+						<p class="askroomf2"> Date of creation: {{ room.time_created }}</p>
+						<!--<p> room id: {{room.id}}</p>-->
+					</div>
 
-    <div class="askcontent">
-        <a class="askroomname" href="{% url 'ShowQuestions' room.id %}">{{ room.title }}</a>
-        <p class="askroomfdesc"> Description: {{room.description}}</p>
-        <p class="askroomf1"> Created by: {{room.created_by}}</p>
-        <p class="askroomf2"> Date of creation: {{ room.time_created }}</p>      
-        <!--<p> room id: {{room.id}}</p>-->
-    </div>
-    
-    {% if room.created_by|stringformat:'s' == user.get_username %}
-    <form action="" method="POST" class="DeleteRoom">
-        {% csrf_token %}
-        <select name="confirm" class="confirm" value=" "  id="confirm">
-            <option value="No">No</option>
-            <option value="Yes">Yes</option>    
-        </select>
-        <input class="title" type="submit" value="Delete room" />
-        <input type="hidden" name="IdentifyDeleteRoom"/>
-        <input type="hidden" name="rID" value={{room.id}} id="rID" class="rID"/>
-    </form>
-    
-{% endif %}
-</div>	
-{% endfor %}
+					{% if room.created_by|stringformat:'s' == user.get_username %}
+						<form action="" method="POST" class="DeleteRoom">
+							{% csrf_token %}
+							<select name="confirm" class="confirm" id="confirm">
+								<option value="No">No</option>
+								<option value="Yes">Yes</option>
+							</select>
+							<input class="title" type="submit" value="Delete room"/>
+							<input type="hidden" name="IdentifyDeleteRoom"/>
+							<input type="hidden" name="rID" value={{ room.id }} id="rID" class="rID"/>
+						</form>
 
-{% else %}
-	
-<p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
-{% endif %}
-<script>
-    function addAskroom() {
-      var x = document.getElementById("addAskroom");
-      if (x.style.display === "none") {
-          x.style.display = "block";
-      } else {
-          x.style.display = "none";
-      }
-      document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-  }
-  </script>
+					{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+		<div style="clear: both"></div>
+	{% else %}
+		<p style="text-align: center"><a class="lead" href="{% url 'home' %}">Please log-in first</a></p>
+	{% endif %}
+	<script>
+		window.onload = function () {
+			console.log('x');
+			var x = document.getElementById("leftColumn");
+			x.style.width = (window.innerWidth - 170) + "px";
+		};
+
+		function addAskroom() {
+			var x = document.getElementById("addAskroom");
+			if (x.style.display === "none") {
+				x.style.display = "block";
+			} else {
+				x.style.display = "none";
+			}
+			document.body.scrollTop = 0; // For Safari XDDDDDDDDDDDD
+			document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+		}
+	</script>
 
 
 
-<script  src="\static\scripts\main.js"></script>
+	<script src="\static\scripts\main.js"></script>
 {% endblock content %}
     
 

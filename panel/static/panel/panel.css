@@ -1,9 +1,14 @@
+body {
+    box-sizing: border-box;
+}
+
 .container{
     margin:0px;
     padding: 0px;
     width: 100%;
     max-width: 2000px;
     height: 100%;
+    position: relative;
 }
 
 a:hover{
@@ -220,10 +225,23 @@ input:hover  {
     color: black;
 }
 
+#rightColumn {
+    width: 170px;
+    height: 100%;
+    float: right;
+}
+
+#leftColumn {
+    float: left;
+    height: 100%;
+    position: relative;
+}
+
 .asklistright{
-    position: fixed;
-    right: 40%;
-    margin: 10px;
+    right: 0;
+    height: 100%;
+    padding: 10px;
+    padding-top: 0;
 }
 
 button.addAskroomb{
@@ -246,7 +264,6 @@ button.addAskroomb{
 .asklist{
     left: 0px;
     display: flex;
-    width: 45%;
     border-top-style: groove;
     border-width: thin;
     text-align: left;
@@ -264,7 +281,6 @@ button.addAskroomb{
 a.askroomname{
    font-size: 28px;
    font-weight: bold;
-   margin-right: 100%;
    margin-left: 3%;
 }
 

@@ -3,12 +3,13 @@
 {% block content %}
 <p><a style="margin-left: 20px;"  href="{% url 'search' %}">&larr; Choose another room </a></p>
 {% if user.is_authenticated %}
+	<div style="width: 748px; margin: 0 auto">
 <div class="asklistright">
-  <button class="addAskroomb"  id="addquestionb"  onclick="addqustion()">Add question</button>
+  <button class="addAskroombxxx"  id="addquestionbxxx" style="margin-left: 30px;" onclick="addqustion()">Add question</button>
 </div>
 <div class="addAskroom" style="display: none"  id="addquestion">
-<b>Create new question:</b>
-  <form   action= "#" method="POST" id="NewQ" >
+<b style="margin-left: 20px">Create new question:</b>
+  <form   action= "#" method="POST" id="NewQ" style="margin-left: 20px">
 {% csrf_token %}
 <input class="qcont" type="text" name="Content" id="content"/></br>
 
@@ -29,9 +30,9 @@
   
   {% if question.submitted_by|stringformat:'s' != user.get_username %}
     {% if question.id not in voting %}
-      <p class="askroomfdesc"><b>Vote for this question :</p></b>
+      <p class="askroomfdesc"><b>Vote for this question :</b></p>
     {% else %}
-      <p class="askroomfdesc"><b>Edit your vote: </p></b>
+      <p class="askroomfdesc"><b>Edit your vote: </b></p>
   {% endif %}
    
   <form  class ="voting" method="POST"  >
@@ -95,7 +96,7 @@
   {% endif %} 
 
 {% endfor %}
-
+</div>
 	{% else %}
 	
 	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>

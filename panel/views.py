@@ -13,7 +13,7 @@ Manager = ViewsManager()
 
 def ShowVersions(request, roomID, questionID):
 
-    return render(request, 'panel/ShowVersions.html', {'roomID': roomID, 'questions': Manager.VersionsManager(questionID)})
+    return render(request, 'panel/showversions.html', { 'roomID': roomID, 'questions': Manager.VersionsManager(questionID) })
 
 def home(request):
     return render(request, 'panel/home.html')
@@ -30,7 +30,7 @@ def search(request):
             return JsonResponse(Manager.SearchManager(
                 form, request), safe=False)
 
-    return render(request, 'panel/search.html', {'rooms': rooms})
+    return render(request, 'panel/search.html', { 'rooms': rooms })
 
 @csrf_exempt
 def ShowQuestions(request, roomID):
@@ -38,7 +38,7 @@ def ShowQuestions(request, roomID):
         return Manager.ChooseFormManager(request, roomID,request.POST)
         
     print("Test")
-    return render(request, 'panel/Questions.html', Manager.ShowQManager(roomID, request))
+    return render(request, 'panel/questions.html', Manager.ShowQManager(roomID, request))
 
 
 def signup(request):
@@ -47,6 +47,7 @@ def signup(request):
         if form.is_valid():
             form.save()
             Manager.SignUpManager(form, request)
+            return render(request, 'panel/home.html', {'form': form})
     else:
         form = UserCreationForm()
     return render(request, 'signup.html', {'form': form})

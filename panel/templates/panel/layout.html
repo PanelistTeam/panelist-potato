@@ -11,8 +11,10 @@
 <header>
 		<nav class="navbar"> <!--<nav class="navbar navbar-expand-sm navbar-dark bg-dark"></nav>-->
 		<div class="container">
-				<a class="navbar-brand" href="{% url 'home' %}">Panelist</a>
+			<a class="navbar-brand" href="{% url 'home' %}">Panelist</a>
+			{% if user.is_authenticated %}
 				<a class="navbar-brand" href="{% url 'logout' %}">Logout</a>
+			{% endif %}
 		</div>  
 	</nav>
 </header>

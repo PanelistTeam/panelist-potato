@@ -1,0 +1,131 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+<p><a style="margin-left: 20px;"  href="{% url 'search' %}">&larr; Choose another room </a></p>
+{% if user.is_authenticated %}
+	<div style="width: 748px; margin: 0 auto">
+<div class="asklistright">
+  <button class="addAskroombxxx"  id="addquestionbxxx" style="margin-left: 30px;" onclick="addqustion()">Add question</button>
+</div>
+<div class="addAskroom" style="display: none"  id="addquestion">
+<b style="margin-left: 20px">Create new question:</b>
+  <form   action= "#" method="POST" id="NewQ" style="margin-left: 20px">
+{% csrf_token %}
+<input class="qcont" type="text" name="Content" id="content"/></br>
+
+<input type="hidden" value="{{user.id}}" name="social_created_by"  id="CreatedBy"/>
+<input type="hidden" name="IdentifyQ"  id="IdentifyQ"/>
+<input type="hidden" value="{{roomID}}" name="askroom_id" id="askroomID"/>
+<input class="title" type="submit" value="Create question"/>
+</form>
+</div>
+{% for question in questions %}
+  <div class="quelist">
+  
+  <p class="quest2"><b>Question:</b><br/> {{ question.content }}</p>
+  {% if question.previous_version is not None %}
+  <p> This question has been edited. To see all versions click <a href="{% url 'ShowQuestion' roomID question.id %}">here</a></p>
+  {% endif %}
+  <p class="askroomfdesc">Score : {{ question.score }}</p> 
+  
+  {% if question.submitted_by|stringformat:'s' != user.get_username %}
+    {% if question.id not in voting %}
+      <p class="askroomfdesc"><b>Vote for this question :</b></p>
+    {% else %}
+      <p class="askroomfdesc"><b>Edit your vote: </b></p>
+  {% endif %}
+   
+  <form  class ="voting" method="POST"  >
+      <select name="value" class="value" value=" "  id="value">
+        <option value=" "></option>
+        <option value="0">0</option>
+        <option value="1">+</option>
+        <option value="-1">-</option>      
+      </select>
+     
+    <input type="hidden"  name="question_id" value={{question.id}} class="question_id1" id="question_id"/>
+    <input type="hidden"  name="user_id" value="{{user.id}}" class="user_id" id="user_id" />
+    <input type="hidden"  name="IdentifyVote" class= "IdentifyVote" id= "IdentifyVote"/>
+    <input class="title" type="submit" value="Vote"/>
+  
+  <br/>
+
+  </div>
+  <!--<p>question id: {{question.id}}</p>-->
+</form>
+<p class="question1"> Created by: {{ question.submitted_by }}</p>
+<p class="question1"> {{ question.time_submitted }}</p> 
+  {% endif %}
+
+
+  {% if question.submitted_by|stringformat:'s' == user.get_username %}
+  <p class="question1"> Created by: {{ question.submitted_by }}</p>
+  <p class="question1"> {{ question.time_submitted }}</p> 
+  <button class="edit"  onclick="edit()">Edit</button>
+  <div style="display: none"  id="edit">
+  Edit question:
+  <form action="#" method="POST" id="Edits" class="Edits" >
+  {% csrf_token %}
+  <input class="qedit" type="text" name="content" id="content" class= "content"/><br/>
+  <select name="confirm" class="confirm" value=" "  id="confirm">
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>    
+  </select>
+  <input class="title" type="submit" value="Edit"/>
+  <input type="hidden" name="IdentifyEdit"  id="IdentifyEdit"/>
+  <input type="hidden" name="qID" value="{{question.id}}" id="qID" />
+  
+  </form>
+
+
+
+  <form action="" method="POST" class="Delete">
+  {% csrf_token %}
+  <select name="confirm" class="confirm" value=" "  id="confirm">
+      <option value="No">No</option>
+      <option value="Yes">Yes</option>    
+  </select>
+  <input class="title" type="submit" value="Delete question" />
+  <input type="hidden" name="IdentifyDelete"/>
+  <input type="hidden" name="qID" value={{question.id}} id="qID" class="qID"/>
+  </form>
+
+  </div>
+
+</div>
+  {% endif %} 
+
+{% endfor %}
+</div>
+	{% else %}
+	
+	 <p><a class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
+  {% endif %}
+  
+<script>
+    function addqustion() {
+      var x = document.getElementById("addquestion");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
+      document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+  </script>
+
+<script>
+    function edit() {
+      var x = document.getElementById("edit");
+      if (x.style.display === "none") {
+          x.style.display = "block";
+      } else {
+          x.style.display = "none";
+      }
+      document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+  }
+  </script>
+ <script  type="text/javascript"  src="\static\scripts\main.js"></script>
+{% endblock content %}

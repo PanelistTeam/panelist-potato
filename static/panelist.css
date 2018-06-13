@@ -1,0 +1,23 @@
+body {
+	height: 800px;
+	width: 1000px;
+	background: red;
+	margin:	auto;
+	padding: 0;
+}
+
+.navbar {
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background: #4169E1;
+}
+
+.navbar-brand{
+    color: white;
+    font: "Open Sans";
+	font-size: 26px;
+	font: bold;
+}
+

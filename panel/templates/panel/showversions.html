@@ -1,0 +1,16 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+{% if user.is_authenticated %}
+		<p><a style="margin-left: 20px;"href="{% url 'ShowQuestions' roomID %}"> &larr;Go back to the room</a></p>
+	{% for question in questions %}
+    <p style="margin-left: 30px";><b>Content:</b></p> 
+    <p  style="margin-left: 30px">{{question.content}}</p>
+
+    {% endfor %}
+	
+{% else %}
+	
+	 <p><a style="margin-left: 30px" class="lead" href="{% url 'home' %}">Please log-in first:</a></p>
+	{% endif %}
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "panel/layout.html" %}
+
+{% block content %}
+	{% if user.is_authenticated %}
+		<div class="my-grid">
+			<div class="left-panel">
+				<h1>Welcome to Panelist site</h1>
+			</div>
+			<div class="right-panel">
+				<h2>
+					Hello, {{ user.username }}
+				</h2>
+				<a class="lead" href="{% url 'search' %}">Search </a>
+				<a class="lead" href="{% url 'logout' %}">Logout</a>
+			</div>
+		</div>
+             
+	{% else %}
+		<div class="my-grid">
+			<div class="left-panel">
+				<h1>Welcome to Panelist site</h1>
+
+
+			</div>
+			<div class="right-panel">
+				<h2>
+					Login or Sign up to start adding and voting on questions
+				</h2>
+				<a class="lead" href="{% url 'login' %}">Log in</a>
+				<a class="lead" href="{% url 'signup' %}">Sign up</a>
+			</div>
+		</div>
+	{% endif %}
+	
+	<script  src="\static\scripts\main.js"></script>
+{% endblock content %}

@@ -169,7 +169,8 @@ class ViewsManager():
 
     def ShowQManager(self, roomID, request):
         questions = Question.objects.filter(
-            askroom_id=roomID, current_version__isnull=True).order_by('-score', '-time_submitted')
+            askroom_id=roomID).order_by('-score', '-time_submitted')
+        questions = [x for x in questions if x.current_version.id == x.id]
         for question in questions:
             score = 0
             votes = QuestionsVote.objects.filter(question_id=question.id)
@@ -224,11 +225,15 @@ class ViewsManager():
         question.score = 0
         question.submitted_by = User.objects.get(
             id=dictData['created_by'])
+        question.current_version = None
+        question.previous_version = None
         question.content = dictData['content']
         qstn = Question.objects.filter(submitted_by=User.objects.get(
             id=dictData['created_by']), content=dictData['content'])
 
         if(len(qstn) == 0):
+            question.save()
+            question.current_version = question
             question.save()
         else:
             print("Already posted")

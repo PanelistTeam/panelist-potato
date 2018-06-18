@@ -19,18 +19,20 @@ from django.urls import path
 from django.contrib.auth import views as auth_views
 from django.views.generic import ListView, DetailView
 
+from panel.api import urls
 from . import views
 from . import views as core_views
-#from mysite.core import views as core_views
+# from mysite.core import views as core_views
 urlpatterns = [
-
+    
+    url(r'^api/', include('panel.api.urls')),
     url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, name='logout'),
     url(r'^signup/$', core_views.signup, name='signup'),
     url(r'^oauth/', include('social_django.urls', namespace='social')),
     url(r'^$', views.home, name='home'),
     url(r'^search/', views.search, name='search'),
-    #url(r'^add/', views.addRoom, name='AddRoom'),
+    # url(r'^add/', views.addRoom, name='AddRoom'),
     path('ShowQuestions/<int:roomID>/',
          views.ShowQuestions, name='ShowQuestions'),
     path('<int:roomID>/ShowVersions/<int:questionID>/',
